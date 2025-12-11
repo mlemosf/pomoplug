@@ -57,7 +57,6 @@
                         .querySelector("button:last-child")
                         .addEventListener("click", pauseTimer);
                 </script>
-                >
             </div>
             <h1 class="text-2xl font-bold text-gray-800 mb-4">{{title}}</h1>
             <div class="flex space-x-4">
@@ -69,6 +68,7 @@
                 </button>
                 <button
                     class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition"
+                    onclick="pauseTimer()"
                 >
                     Pause
                 </button>
