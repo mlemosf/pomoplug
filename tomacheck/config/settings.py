@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DEFAULT_TIMER_VALUE = 1500
+
 
 # Application definition
 CUSTOM_APPS = ["timer"]
