@@ -1,10 +1,78 @@
 <html>
-    <head>
-        <title>Tomacheck</title>
-    </head>
-    <body>
-        <h1>25:00</h1>
-        <button>Start</button>
-        <button>Pause</button>
-    </body>
+    <html>
+        <head>
+            <title>Tomacheck</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+        <body
+            class="flex flex-col items-center justify-center min-h-screen bg-gray-100"
+        >
+            <div
+                class="w-64 h-64 rounded-full bg-red-500 flex items-center justify-center mb-8"
+            >
+                <h1
+                    class="text-6xl font-bold text-white"
+                    id="timer"
+                    data-time="1500"
+                >
+                    25:00
+                </h1>
+                <script>
+                    const timerElement = document.getElementById("timer");
+                    let timeLeft = parseInt(
+                        timerElement.getAttribute("data-time"),
+                    );
+                    let timerInterval;
+
+                    function updateTimer() {
+                        const minutes = Math.floor(timeLeft / 60);
+                        const seconds = timeLeft % 60;
+                        timerElement.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+                    }
+
+                    function startTimer() {
+                        if (!timerInterval) {
+                            timerInterval = setInterval(() => {
+                                timeLeft--;
+                                updateTimer();
+                                if (timeLeft <= 0) {
+                                    clearInterval(timerInterval);
+                                    timerInterval = null;
+                                }
+                            }, 1000);
+                        }
+                    }
+
+                    function pauseTimer() {
+                        if (timerInterval) {
+                            clearInterval(timerInterval);
+                            timerInterval = null;
+                        }
+                    }
+
+                    document
+                        .querySelector("button:first-child")
+                        .addEventListener("click", startTimer);
+                    document
+                        .querySelector("button:last-child")
+                        .addEventListener("click", pauseTimer);
+                </script>
+                >
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800 mb-4">{{title}}</h1>
+            <div class="flex space-x-4">
+                <button
+                    class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition"
+                    onclick="startTimer()"
+                >
+                    Start
+                </button>
+                <button
+                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition"
+                >
+                    Pause
+                </button>
+            </div>
+        </body>
+    </html>
 </html>
