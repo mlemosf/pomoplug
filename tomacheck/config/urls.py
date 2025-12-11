@@ -17,9 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from timer.views import TimerView
+from timer.views import TimerCreateView, TimerView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("timer/<str:uuid>", TimerView.as_view()),
+    path("timer/new", TimerCreateView.as_view(), name="timer-create"),
+    path("timer/<str:uuid>", TimerView.as_view(), name="timer-view"),
 ]
