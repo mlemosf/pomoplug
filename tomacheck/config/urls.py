@@ -19,4 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from timer.views import TimerView
 
-urlpatterns = [path("admin/", admin.site.urls), path("timer/", TimerView.as_view())]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("timer/<str:uuid>", TimerView.as_view()),
+]
