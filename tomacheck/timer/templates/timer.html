@@ -18,6 +18,10 @@
                     25:00
                 </h1>
                 <script>
+                    // Constants
+                    const STATUS_STOPPED = 0;
+                    const STATUS_RUNNING = 1;
+
                     const timerElement = document.getElementById("timer");
                     let timeLeft = parseInt(
                         timerElement.getAttribute("data-time"),
@@ -32,6 +36,24 @@
 
                     function startTimer() {
                         if (!timerInterval) {
+                            fetch("/timer/{{uuid}}", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRFToken": "{{ csrf_token }}",
+                                },
+                                body: JSON.stringify({
+                                    current_value: STATUS_RUNNING,
+                                }),
+                            })
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    console.log("Success:", data);
+                                })
+                                .catch((error) => {
+                                    console.error("Error:", error);
+                                });
+
                             timerInterval = setInterval(() => {
                                 timeLeft--;
                                 updateTimer();

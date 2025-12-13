@@ -1,6 +1,7 @@
 from http.client import NOT_FOUND
 
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import RedirectView, TemplateView, View
 
@@ -29,9 +30,16 @@ class TimerView(View):
     def get(self, request, *args, **kwargs):
         timer_uuid = kwargs.get("uuid")
         timer = Timer.objects.get(id=timer_uuid)
-        context = {"title": timer.title, "count": timer.timer_count}
+        context = {"uuid": timer.id, "title": timer.title, "count": timer.timer_count}
         return render(request, template_name="timer.html", context=context)
 
     def put(self, request, *args, **kwargs):
-        # TODO: Update values in the timer
-        pass
+        timer_id = kwargs.get("uuid", None)
+        body = QueryDict(request.body)
+
+        # TODO: Add proper body validation
+        timer = Timer.objects.get(id=timer_id)
+        timer.status = body.get("status", timer.status)
+        timer.current_value = body.get("current_value", timer.current_value)
+        timer.save()
+        return HttpResponse({}, content_type="application/json")
