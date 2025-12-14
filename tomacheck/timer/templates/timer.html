@@ -103,14 +103,17 @@
             <h1 class="text-2xl font-bold text-gray-800 mb-4">{{title}}</h1>
             <div class="flex space-x-4">
                 <button
-                    class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition"
-                    onclick="startTimer()"
+                    class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    onclick="startTimer(); this.disabled = true; document.querySelector('button:last-child').disabled = false;"
+                    id="startButton"
                 >
                     Start
                 </button>
                 <button
-                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition"
-                    onclick="pauseTimer()"
+                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    onclick="pauseTimer(); this.disabled = true; document.querySelector('button:first-child').disabled = false;"
+                    id="pauseButton"
+                    disabled
                 >
                     Pause
                 </button>
