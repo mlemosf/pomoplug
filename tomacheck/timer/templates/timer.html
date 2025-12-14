@@ -1,145 +1,157 @@
 {% load timer_extras %}
 <html>
-    <html>
-        <head>
-            <title>({{count}}) {{title}} - Tomacheck</title>
-            <script src="https://cdn.tailwindcss.com"></script>
-        </head>
-        <body
-            class="flex flex-col items-center justify-center min-h-screen bg-gray-100"
+    <head>
+        <title>({{count}}) {{title}} - Tomacheck</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body
+        class="flex flex-col items-center justify-center min-h-screen bg-gray-100"
+    >
+        <div
+            class="w-64 h-64 rounded-full bg-red-500 flex items-center justify-center mb-8"
         >
-            <div
-                class="w-64 h-64 rounded-full bg-red-500 flex items-center justify-center mb-8"
+            <h1
+                class="text-6xl font-bold text-white"
+                id="timer"
+                data-time="{{current_value}}"
             >
-                <h1
-                    class="text-6xl font-bold text-white"
-                    id="timer"
-                    data-time="{{current_value}}"
-                >
-                    {{current_value|seconds_to_hhmm}}
-                </h1>
-                <script>
-                    // Constants
-                    const STATUS_STOPPED = 0;
-                    const STATUS_RUNNING = 1;
-                    const TIMER_FULL = 10;
-
-                    const timerElement = document.getElementById("timer");
-                    let timeLeft = parseInt(
-                        timerElement.getAttribute("data-time"),
-                    );
-                    let timerInterval;
-
-                    function updateTimer() {
-                        const minutes = Math.floor(timeLeft / 60);
-                        const seconds = timeLeft % 60;
-                        timerElement.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-                    }
-
-                    function startTimer() {
-                        if (!timerInterval) {
-                            fetch("/timer/{{uuid}}", {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "X-CSRFToken": "{{ csrf_token }}",
-                                },
-                                body: JSON.stringify({
-                                    status: STATUS_RUNNING,
-                                }),
-                            })
-                                .then((response) => response.json())
-                                .then((data) => {
-                                    console.log("Success:", data);
-                                })
-                                .catch((error) => {
-                                    console.error("Error:", error);
-                                });
-
-                            timerInterval = setInterval(() => {
-                                timeLeft--;
-                                updateTimer();
-                                if (timeLeft <= 0) {
-                                  clearInterval(timerInterval);
-                                  fetch("/timer/{{uuid}}", {
-                                      method: "PUT",
-                                         headers: {
-                                             "Content-Type": "application/json",
-                                             "X-CSRFToken": "{{ csrf_token }}",
-                                         },
-                                         body: JSON.stringify({
-                                             timer_count: parseInt({{count}}) + 1,
-                                             status: STATUS_STOPPED,
-                                             current_value: TIMER_FULL
-                                         }),
-                                     }
-                                  ).then(
-                                    (response) => response.json()
-                                  ).then((data) => {
-                                     console.log("Success:", data);
-                                     timeLeft = data.current_value;
-                                     updateTimer();
-                                  }).catch((error) => {
-                                    console.error("Error:", error);
-                                  });
-                                timerInterval = null;
-                            }
-                            }, 1000);
-                        }
-                    }
-
-                    function pauseTimer() {
-                        if (timerInterval) {
-                            clearInterval(timerInterval);
-                            timerInterval = null;
-
-                            fetch("/timer/{{uuid}}", {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "X-CSRFToken": "{{ csrf_token }}",
-                                },
-                                body: JSON.stringify({
-                                    status: STATUS_STOPPED,
-                                    current_value: timeLeft,
-                                }),
-                            })
-                                .then((response) => response.json())
-                                .then((data) => {
-                                    console.log("Success:", data);
-                                })
-                                .catch((error) => {
-                                    console.error("Error:", error);
-                                });
-                        }
-                    }
-
-                    document
-                        .querySelector("button:first-child")
-                        .addEventListener("click", startTimer);
-                    document
-                        .querySelector("button:last-child")
-                        .addEventListener("click", pauseTimer);
-                </script>
-            </div>
+                {{current_value|seconds_to_hhmm}}
+            </h1>
+        </div>
+        <div class="flex space-x-4">
             <h1 class="text-2xl font-bold text-gray-800 mb-4">{{title}}</h1>
-            <div class="flex space-x-4">
-                <button
-                    class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    onclick="startTimer(); this.disabled = true; document.querySelector('button:last-child').disabled = false;"
-                    id="startButton"
-                >
-                    Start
-                </button>
-                <button
-                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    onclick="pauseTimer(); this.disabled = true; document.querySelector('button:first-child').disabled = false;"
-                    id="pauseButton"
-                    disabled
-                >
-                    Pause
-                </button>
-            </div>
-        </body>
-    </html>
+            <h1 class="text-2xl font-bold text-gray-800 mb-4" id="timer-count">
+                ({{count}})
+            </h1>
+        </div>
+        <div class="flex space-x-4">
+            <button
+                class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                onclick="startTimer(); this.disabled = true; document.querySelector('button:last-child').disabled = false;"
+                id="startButton"
+            >
+                Start
+            </button>
+            <button
+                class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                onclick="pauseTimer(); this.disabled = true; document.querySelector('button:first-child').disabled = false;"
+                id="pauseButton"
+                disabled
+            >
+                Pause
+            </button>
+        </div>
+
+        <script>
+            // Constants
+            const STATUS_STOPPED = 0;
+            const STATUS_RUNNING = 1;
+            const TIMER_FULL = 5;
+
+            const timerElement = document.getElementById("timer");
+            const countElement = document.getElementById("timer-count")
+
+            let timeLeft = parseInt(
+                timerElement.getAttribute("data-time"),
+            );
+            let timerInterval;
+
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+            }
+
+            function updateCount(count, title) {
+              countElement.textContent = count;
+              document.title = `(${count}) ${title} - Tomacheck`
+            }
+
+            function startTimer() {
+                if (!timerInterval) {
+                    fetch("/timer/{{uuid}}", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        body: JSON.stringify({
+                            status: STATUS_RUNNING,
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log("Success:", data);
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+
+                    timerInterval = setInterval(() => {
+                        timeLeft--;
+                        updateTimer();
+                        if (timeLeft <= 0) {
+                          clearInterval(timerInterval);
+                          fetch("/timer/{{uuid}}", {
+                              method: "PUT",
+                                 headers: {
+                                     "Content-Type": "application/json",
+                                     "X-CSRFToken": "{{ csrf_token }}",
+                                 },
+                                 body: JSON.stringify({
+                                     timer_count: parseInt({{count}}) + 1,
+                                     status: STATUS_STOPPED,
+                                     current_value: TIMER_FULL
+                                 }),
+                             }
+                          ).then(
+                            (response) => response.json()
+                          ).then((data) => {
+                             console.log("Success:", data);
+                             timeLeft = data.current_value;
+                             updateTimer();
+                             updateCount(data.count, data.title);
+                          }).catch((error) => {
+                            console.error("Error:", error);
+                          });
+                        timerInterval = null;
+                    }
+                    }, 1000);
+                }
+            }
+
+            function pauseTimer() {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+
+                    fetch("/timer/{{uuid}}", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        body: JSON.stringify({
+                            status: STATUS_STOPPED,
+                            current_value: timeLeft,
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log("Success:", data);
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                }
+            }
+
+            document
+                .querySelector("button:first-child")
+                .addEventListener("click", startTimer);
+            document
+                .querySelector("button:last-child")
+                .addEventListener("click", pauseTimer);
+        </script>
+    </body>
 </html>
