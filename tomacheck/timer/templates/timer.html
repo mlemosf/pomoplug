@@ -43,7 +43,7 @@
                                     "X-CSRFToken": "{{ csrf_token }}",
                                 },
                                 body: JSON.stringify({
-                                    current_value: STATUS_RUNNING,
+                                    status: STATUS_RUNNING,
                                 }),
                             })
                                 .then((response) => response.json())
@@ -69,6 +69,25 @@
                         if (timerInterval) {
                             clearInterval(timerInterval);
                             timerInterval = null;
+
+                            fetch("/timer/{{uuid}}", {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRFToken": "{{ csrf_token }}",
+                                },
+                                body: JSON.stringify({
+                                    status: STATUS_STOPPED,
+                                    current_value: timeLeft,
+                                }),
+                            })
+                                .then((response) => response.json())
+                                .then((data) => {
+                                    console.log("Success:", data);
+                                })
+                                .catch((error) => {
+                                    console.error("Error:", error);
+                                });
                         }
                     }
 

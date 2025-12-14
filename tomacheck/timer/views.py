@@ -1,3 +1,4 @@
+import json
 from http.client import NOT_FOUND
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -35,7 +36,7 @@ class TimerView(View):
 
     def put(self, request, *args, **kwargs):
         timer_id = kwargs.get("uuid", None)
-        body = QueryDict(request.body)
+        body = json.loads(request.body)
 
         # TODO: Add proper body validation
         timer = Timer.objects.get(id=timer_id)
