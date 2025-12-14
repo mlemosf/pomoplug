@@ -2,7 +2,7 @@ import json
 from http.client import NOT_FOUND
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, QueryDict
+from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import RedirectView, TemplateView, View
 
@@ -47,5 +47,16 @@ class TimerView(View):
         timer = Timer.objects.get(id=timer_id)
         timer.status = body.get("status", timer.status)
         timer.current_value = body.get("current_value", timer.current_value)
+        timer.timer_count = body.get("timer_count", timer.timer_count)
         timer.save()
-        return HttpResponse({}, content_type="application/json")
+
+        timer_dict = {
+            "title": timer.title,
+            "current_value": timer.current_value,
+            "count": timer.timer_count,
+        }
+
+        return JsonResponse(
+            timer_dict,
+            content_type="application/json",
+        )

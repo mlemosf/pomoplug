@@ -22,6 +22,7 @@
                     // Constants
                     const STATUS_STOPPED = 0;
                     const STATUS_RUNNING = 1;
+                    const TIMER_FULL = 10;
 
                     const timerElement = document.getElementById("timer");
                     let timeLeft = parseInt(
@@ -59,9 +60,30 @@
                                 timeLeft--;
                                 updateTimer();
                                 if (timeLeft <= 0) {
-                                    clearInterval(timerInterval);
-                                    timerInterval = null;
-                                }
+                                  clearInterval(timerInterval);
+                                  fetch("/timer/{{uuid}}", {
+                                      method: "PUT",
+                                         headers: {
+                                             "Content-Type": "application/json",
+                                             "X-CSRFToken": "{{ csrf_token }}",
+                                         },
+                                         body: JSON.stringify({
+                                             timer_count: parseInt({{count}}) + 1,
+                                             status: STATUS_STOPPED,
+                                             current_value: TIMER_FULL
+                                         }),
+                                     }
+                                  ).then(
+                                    (response) => response.json()
+                                  ).then((data) => {
+                                     console.log("Success:", data);
+                                     timeLeft = data.current_value;
+                                     updateTimer();
+                                  }).catch((error) => {
+                                    console.error("Error:", error);
+                                  });
+                                timerInterval = null;
+                            }
                             }, 1000);
                         }
                     }
