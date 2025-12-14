@@ -1,3 +1,4 @@
+{% load timer_extras %}
 <html>
     <html>
         <head>
@@ -13,9 +14,9 @@
                 <h1
                     class="text-6xl font-bold text-white"
                     id="timer"
-                    data-time="1500"
+                    data-time="{{current_value}}"
                 >
-                    25:00
+                    {{current_value|seconds_to_hhmm}}
                 </h1>
                 <script>
                     // Constants

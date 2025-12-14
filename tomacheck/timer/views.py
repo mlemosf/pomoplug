@@ -31,7 +31,12 @@ class TimerView(View):
     def get(self, request, *args, **kwargs):
         timer_uuid = kwargs.get("uuid")
         timer = Timer.objects.get(id=timer_uuid)
-        context = {"uuid": timer.id, "title": timer.title, "count": timer.timer_count}
+        context = {
+            "uuid": timer.id,
+            "title": timer.title,
+            "current_value": timer.current_value,
+            "count": timer.timer_count,
+        }
         return render(request, template_name="timer.html", context=context)
 
     def put(self, request, *args, **kwargs):
