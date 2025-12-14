@@ -107,10 +107,15 @@
                           ).then(
                             (response) => response.json()
                           ).then((data) => {
-                             console.log("Success:", data);
-                             timeLeft = data.current_value;
-                             updateTimer();
-                             updateCount(data.count, data.title);
+                              console.log("Success:", data);
+                              timeLeft = data.current_value;
+                              updateTimer();
+                              updateCount(data.count, data.title);
+
+                              // Re-enable the start button
+                              document.querySelector('button:first-child').disabled = false;
+                              document.querySelector('button:last-child').disabled = true;
+
                           }).catch((error) => {
                             console.error("Error:", error);
                           });
