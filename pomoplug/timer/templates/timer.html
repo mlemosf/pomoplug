@@ -43,6 +43,10 @@
         </div>
 
         <script>
+
+            // Request permission for notification
+            let promise = Notification.requestPermission();
+
             // Constants
             const STATUS_STOPPED = 0;
             const STATUS_RUNNING = 1;
