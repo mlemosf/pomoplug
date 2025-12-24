@@ -10,8 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,14 +28,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-)ter(9cw9xbym$r_s4nlv+29j6p!%xvhe-16odvl7l--gkwm!)"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+environ.Env.read_env(os.path.join(BASE_DIR.parent, ".env"))
 
 ALLOWED_HOSTS = []
 
 DEFAULT_TIMER_VALUE = 1500
 
+DEBUG = env("DEBUG")
 
 # Application definition
 CUSTOM_APPS = ["timer"]
@@ -78,8 +84,12 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
+        "PASSWORD": env("DB_PASSWORD"),
     }
 }
 

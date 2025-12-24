@@ -1,9 +1,12 @@
 [project]
-name = "tomacheck"
+name = "pomoplug"
 version = "0.1.0"
-description = "Add your description here"
+description = "Pomoplug - Pluggable timers for your project management needs"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "django>=6.0",
+    "django-environ>=0.12.0",
+    "gunicorn>=23.0.0",
+    "psycopg2-binary>=2.9.11",
 ]
