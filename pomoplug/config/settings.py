@@ -36,9 +36,18 @@ DEFAULT_TIMER_VALUE = 1500
 
 DEBUG = env("DEBUG")
 
-# Application definition
-CUSTOM_APPS = ["timer"]
+# Google Auth
+GOOGLE_OAUTH_CLIENT_ID = os.environ.get("GOOGLE_OAUTH_CLIENT_ID")
+if not GOOGLE_OAUTH_CLIENT_ID:
+    raise ValueError(
+        "GOOGLE_OAUTH_CLIENT_ID is missing.Have you put it in a file at core/.env ?"
+    )
 
+# We need these lines below to allow the Google sign in popup to work.
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
+# Application definition
+CUSTOM_APPS = ["authentication", "timer"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -57,6 +66,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",  # Keep for username/password login
 ]
 
 ROOT_URLCONF = "config.urls"

@@ -15,12 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from authentication.views import AuthenticationView
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from timer.views import TimerCreateView, TimerView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("login", AuthenticationView.as_view(), name="authentication-view"),
     path("timer/new", TimerCreateView.as_view(), name="timer-create"),
     path("timer/<str:uuid>", TimerView.as_view(), name="timer-view"),
+    path("", include("authentication.urls")),
 ]
