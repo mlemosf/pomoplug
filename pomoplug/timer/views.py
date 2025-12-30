@@ -11,10 +11,12 @@ from timer.models import Timer
 
 
 # Create your views here.
-class TimerCreateView(RedirectView):
+class TimerCreateView(LoginRequiredMixin, RedirectView):
     permanent = False
     query_string = False
     pattern_name = "timer-view"
+    login_url = "/login"
+    redirect_field_name = "redirect_to"
 
     def get_redirect_url(self, *args, **kwargs):
         title = self.request.GET.get("t", None)
