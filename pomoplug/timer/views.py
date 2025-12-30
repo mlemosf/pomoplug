@@ -2,6 +2,7 @@ import json
 from http.client import NOT_FOUND
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
@@ -20,12 +21,14 @@ class TimerCreateView(LoginRequiredMixin, RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         title = self.request.GET.get("t", None)
+        user = self.request.user
         try:
             timer = Timer.objects.get(title=title)
             kwargs["uuid"] = timer.id
             return super().get_redirect_url(*args, **kwargs)
         except ObjectDoesNotExist:
-            timer = Timer.objects.create(title=title)
+            user = user
+            timer = Timer.objects.create(title=title, user=user)
             kwargs["uuid"] = timer.id
             return super().get_redirect_url(*args, **kwargs)
 

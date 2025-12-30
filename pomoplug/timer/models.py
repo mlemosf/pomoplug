@@ -15,6 +15,11 @@ class Timer(models.Model):
     timer_count = models.SmallIntegerField(default=0, null=False)
     current_value = models.SmallIntegerField(default=DEFAULT_TIMER_VALUE, null=False)
     status = models.SmallIntegerField(choices=TIMER_STATUS, default=0, null=False)
+    user = models.ForeignKey(
+        "auth.User",
+        related_name="timers",
+        on_delete=models.CASCADE,
+    )
 
     def __str__(self) -> str:
         return str(self.title)
