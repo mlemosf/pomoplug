@@ -1,9 +1,11 @@
 import os
 
+from config.settings import BASE_URL, GOOGLE_OAUTH_CLIENT_ID
 from django.contrib.admin.utils import reverse
 from django.contrib.auth import get_user_model, login
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
@@ -13,19 +15,16 @@ from google.auth.transport import requests
 from google.oauth2 import id_token
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class AuthenticationView(TemplateView):
     template_name = "authentication.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthenticationView, self).get_context_data(*args, **kwargs)
         context["redirect_to"] = self.request.GET.get("redirect_to")
+        context["base_url"] = BASE_URL
+        context["oauth2_client_id"] = GOOGLE_OAUTH_CLIENT_ID
         return context
-
-
-@csrf_exempt
-# def sign_in(request):
-#     redirect_url = request.GET.get("redirect_to", None)
-#     return render(request, "sign_in.html", context={"redirect_url": redirect_url})
 
 
 @csrf_exempt

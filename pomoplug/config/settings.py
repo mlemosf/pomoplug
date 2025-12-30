@@ -36,6 +36,8 @@ DEFAULT_TIMER_VALUE = 1500
 
 DEBUG = env("DEBUG")
 
+BASE_URL = env("BASE_URL", default="http://localhost:8000")
+
 # Google Auth
 GOOGLE_OAUTH_CLIENT_ID = os.environ.get("GOOGLE_OAUTH_CLIENT_ID")
 if not GOOGLE_OAUTH_CLIENT_ID:
