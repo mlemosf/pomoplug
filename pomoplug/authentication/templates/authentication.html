@@ -1,9 +1,16 @@
 {% csrf_token %}
 <!doctype html>
+{% load static %}
 <html>
     <head>
         <title>Pomoplug - Login</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <!--<script src="https://cdn.tailwindcss.com"></script>-->
+        {% load static %}
+        <link
+            rel="stylesheet"
+            href="{% static 'css/output.css' %}"
+            type="text/css"
+        />
     </head>
     <body>
         <div class="min-h-screen flex items-center justify-center bg-gray-50">

@@ -1,8 +1,15 @@
-{% load timer_extras %}
+<!doctype html>
+{% load timer_extras %} {% load static %}
 <html>
     <head>
         <title>({{count}}) {{title}} - Tomacheck</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <!--<script src="https://cdn.tailwindcss.com"></script>-->
+        {% load static %}
+        <link
+            rel="stylesheet"
+            href="{% static 'css/output.css' %}"
+            type="text/css"
+        />
     </head>
     <body
         class="flex flex-col items-center justify-center min-h-screen bg-gray-100"
@@ -50,7 +57,7 @@
             // Constants
             const STATUS_STOPPED = 0;
             const STATUS_RUNNING = 1;
-            const TIMER_FULL = 5;
+            const TIMER_FULL = 1500;
 
             const timerElement = document.getElementById("timer");
             const countElement = document.getElementById("timer-count")
@@ -67,7 +74,7 @@
             }
 
             function updateCount(count, title) {
-              countElement.textContent = count;
+              countElement.textContent = `(${count})`;
               document.title = `(${count}) ${title} - Tomacheck`
             }
 
