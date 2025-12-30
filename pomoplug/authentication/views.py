@@ -1,7 +1,7 @@
 import os
 
 from django.contrib.admin.utils import reverse
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.http import urlencode
@@ -27,7 +27,6 @@ def auth_receiver(request):
     """
     Google calls this URL after the user has signed in with their Google account.
     """
-    print("Inside")
     token = request.POST["credential"]
 
     try:
@@ -58,6 +57,7 @@ def auth_receiver(request):
         user.save()
 
     # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
+    login(request, user)
     request.session["user_data"] = user_data
 
     # TODO: Get query params from the redirect
