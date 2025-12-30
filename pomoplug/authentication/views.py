@@ -16,10 +16,16 @@ from google.oauth2 import id_token
 class AuthenticationView(TemplateView):
     template_name = "authentication.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(AuthenticationView, self).get_context_data(*args, **kwargs)
+        context["redirect_to"] = self.request.GET.get("redirect_to")
+        return context
+
 
 @csrf_exempt
-def sign_in(request):
-    return render(request, "sign_in.html")
+# def sign_in(request):
+#     redirect_url = request.GET.get("redirect_to", None)
+#     return render(request, "sign_in.html", context={"redirect_url": redirect_url})
 
 
 @csrf_exempt
@@ -28,6 +34,7 @@ def auth_receiver(request):
     Google calls this URL after the user has signed in with their Google account.
     """
     token = request.POST["credential"]
+    redirect_url = request.GET.get("redirect_to", None)
 
     try:
         user_data = id_token.verify_oauth2_token(
@@ -60,11 +67,9 @@ def auth_receiver(request):
     login(request, user)
     request.session["user_data"] = user_data
 
-    # TODO: Get query params from the redirect
-    query_kwargs = {"t": "minha tarefa"}
-    url = f"{reverse('timer-create')}?{urlencode(query_kwargs)}"
-
-    return redirect(url)
+    # Redirect to the requested ul
+    print(redirect_url)
+    return redirect(redirect_url)
 
 
 def sign_out(request):
