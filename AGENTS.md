@@ -1,12 +1,12 @@
 # AGENTS.md
 
 ## Commands
-- **Run server**: `cd tomacheck && python manage.py runserver`
-- **Run tests**: `cd tomacheck && python manage.py test`
-- **Run single test**: `cd tomacheck && python manage.py test timer.tests.TestClassName.test_method_name`
-- **Create migrations**: `cd tomacheck && python manage.py makemigrations`
-- **Apply migrations**: `cd tomacheck && python manage.py migrate`
-- **Create superuser**: `cd tomacheck && python manage.py createsuperuser`
+- **Run server**: `cd pomoplug && python manage.py runserver`
+- **Run tests**: `cd pomoplug && python manage.py test`
+- **Run single test**: `cd pomoplug && python manage.py test timer.tests.TestClassName.test_method_name`
+- **Create migrations**: `cd pomoplug && python manage.py makemigrations`
+- **Apply migrations**: `cd pomoplug && python manage.py migrate`
+- **Create superuser**: `cd pomoplug && python manage.py createsuperuser`
 
 ## Code Style Guidelines
 - **Python version**: 3.13+ (uses uv for dependency management)
@@ -17,4 +17,4 @@
 - **Properties**: Use @property decorator for computed fields
 - **Time handling**: Use datetime.now() and timezone-aware datetime
 - **Database**: Custom apps defined in CUSTOM_APPS list in settings
-- **Project structure**: Main app in tomacheck/, manage.py in tomacheck/tomacheck/
+- **Project structure**: Main app in pomoplug/, manage.py in pomoplug/pomoplug/
