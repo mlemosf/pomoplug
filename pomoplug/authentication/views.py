@@ -1,6 +1,7 @@
 import os
 
 from django.contrib.admin.utils import reverse
+from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.http import urlencode
@@ -37,6 +38,25 @@ def auth_receiver(request):
         return HttpResponse(status=403)
 
     # In a real app, I'd also save any new user here to the database.
+
+    User = get_user_model()
+
+    # Check if user exists by email, create if not
+    user, created = User.objects.get_or_create(
+        email=user_data["email"],
+        defaults={
+            "username": user_data["email"],
+            "first_name": user_data.get("given_name", ""),
+            "last_name": user_data.get("family_name", ""),
+        },
+    )
+
+    # Update user details if they already exist
+    if not created:
+        user.first_name = user_data.get("given_name", user.first_name)
+        user.last_name = user_data.get("family_name", user.last_name)
+        user.save()
+
     # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
     request.session["user_data"] = user_data
 
