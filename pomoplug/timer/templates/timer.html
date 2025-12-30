@@ -2,7 +2,7 @@
 {% load timer_extras %} {% load static %}
 <html>
     <head>
-        <title>({{count}}) {{title}} - Tomacheck</title>
+        <title>({{count}}) {{title}} - Pomoplug</title>
         <!--<script src="https://cdn.tailwindcss.com"></script>-->
         {% load static %}
         <link
@@ -71,6 +71,7 @@
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
                 timerElement.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
             }
 
             function updateCount(count, title) {
@@ -126,6 +127,15 @@
                               // Re-enable the start button
                               document.querySelector('button:first-child').disabled = false;
                               document.querySelector('button:last-child').disabled = true;
+
+                              // Re-enable the start button
+                              document.querySelector('button:first-child').disabled = false;
+                              document.querySelector('button:last-child').disabled = true;
+
+                              // Show notification when timer completes
+                              if (Notification.permission === "granted") {
+                                  new Notification("Time's up! Get some rest.");
+                              }
 
                           }).catch((error) => {
                             console.error("Error:", error);
