@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-)ter(9cw9xbym$r_s4nlv+29j6p!%xvhe-16odvl7l--gkwm!)"
 environ.Env.read_env(os.path.join(BASE_DIR.parent, ".env"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 DEFAULT_TIMER_VALUE = 1500
 
