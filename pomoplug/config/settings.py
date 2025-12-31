@@ -32,6 +32,8 @@ environ.Env.read_env(os.path.join(BASE_DIR.parent, ".env"))
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+
 DEFAULT_TIMER_VALUE = 1500
 
 DEBUG = env("DEBUG")
