@@ -1,15 +1,13 @@
-<div>
-    <div class="w-64 h-full bg-gray-100 border-r border-gray-200">
-        <ul class="py-4">
-            {% for item in timer_list %}
-            <li class="px-4 py-2 hover:bg-gray-200">
-                <a
-                    href="{% url 'timer-view' uuid=item.id %}"
-                    class="block text-gray-800"
-                    >{{item.title}}</a
-                >
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="w-56 h-full bg-gray-500 border-r p-8">
+    <ul class="py-4 h-screen">
+        {% for item in timer_list %}
+        <li class="px-4 py-2 hover:bg-gray-200">
+            <a
+                href="{% url 'timer-view' uuid=item.id %}"
+                class="block text-white"
+                >{{item.title}}</a
+            >
+        </li>
+        {% endfor %}
+    </ul>
 </div>
