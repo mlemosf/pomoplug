@@ -40,7 +40,7 @@ class TimerView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         timer_uuid = kwargs.get("uuid")
         user = request.user
-        timers = Timer.objects.filter(user=user)
+        timers = Timer.objects.filter(user=user).order_by("title")
         timer_list = timers.values("id", "title")
         timer = timers.get(id=timer_uuid)
         context = {
