@@ -39,12 +39,16 @@ class TimerView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         timer_uuid = kwargs.get("uuid")
-        timer = Timer.objects.get(id=timer_uuid)
+        user = request.user
+        timers = Timer.objects.filter(user=user)
+        timer_list = timers.values("id", "title")
+        timer = timers.get(id=timer_uuid)
         context = {
             "uuid": timer.id,
             "title": timer.title,
             "current_value": timer.current_value,
             "count": timer.timer_count,
+            "timer_list": timer_list,
         }
         return render(request, template_name="timer.html", context=context)
 
