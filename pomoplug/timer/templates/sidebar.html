@@ -33,9 +33,29 @@
     {% for item in timer_list %}
     <div style="display: flex; align-items: center">
         <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
-        <span style="margin: 0; cursor: pointer; color: #818181">🗑️</span>
+        <span
+            onclick="deleteTimer('{{item.id}}')"
+            style="margin: 0; cursor: pointer; color: #818181; cursor: pointer"
+            >🗑️</span
+        >
     </div>
     {% endfor %}
 </div>
+
+<script>
+    function deleteTimer(timer_id) {
+        fetch(`/timer/${timer_id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+    }
+</script>
 
 {% endblock %}

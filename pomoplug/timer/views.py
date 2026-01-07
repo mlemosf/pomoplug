@@ -73,3 +73,12 @@ class TimerView(LoginRequiredMixin, View):
             timer_dict,
             content_type="application/json",
         )
+
+    def delete(self, request, *args, **kwargs):
+        timer_id = kwargs.get("uuid", None)
+        try:
+            timer = Timer.objects.get(id=timer_id)
+            timer.delete()
+            return JsonResponse({}, content_type="application/json")
+        except ObjectDoesNotExist:
+            return JsonResponse({}, content_type="application/json")
