@@ -31,7 +31,10 @@
 </style>
 <div class="sidenav">
     {% for item in timer_list %}
-    <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
+    <div style="display: flex; align-items: center">
+        <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
+        <span style="margin: 0; cursor: pointer; color: #818181">🗑️</span>
+    </div>
     {% endfor %}
 </div>
 
