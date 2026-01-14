@@ -54,20 +54,23 @@
 
 <div class="sidenav">
     {% for item in timer_list %}
-    <div style="display: flex; align-items: center">
+    <ul class="menu">
         <!--Item-->
         {% if item.id == uuid %}
-        <p class="text-gray-400">{{item.title}}</p>
+        <li style="display: flex;">
+            <p class="text-gray-400">{{item.title}}</p>
+        </li>
         {% else %}
-        <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
-        <span
-            onclick="my_modal_1.showModal()"
-            style="margin: 0; cursor: pointer; color: #818181; cursor: pointer"
-            >🗑️</span
-        >
+        <li  style="display: flex; align-items: center;">
+            <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
+            <span
+                onclick="my_modal_1.showModal()"
+                style="cursor: pointer; color: #818181;"
+            >🗑️</span>
+        </li>
         {% endif %}
         <!--End item-->
-    </div>
+    </ul>
     {% endfor %}
 </div>
 
