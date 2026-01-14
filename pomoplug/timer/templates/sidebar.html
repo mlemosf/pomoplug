@@ -12,13 +12,21 @@
     	padding-top:20px;
     }
 
-    .sidenav a {
+    .sidenav a{
     	padding:6px 8px 6px 16px;
     	text-decoration: none;
     	font-size:18px;
     	color: #818181;
     	display:block;
     }
+    .sidenav p{
+        	padding:6px 8px 6px 16px;
+        	text-decoration: none;
+        	font-size:18px;
+        	color: #555555;
+        	display:block;
+        }
+
 
     .sidenav a:hover{
     	color:#f1f1f1;
@@ -47,13 +55,18 @@
 <div class="sidenav">
     {% for item in timer_list %}
     <div style="display: flex; align-items: center">
+        <!--Item-->
+        {% if item.id == uuid %}
+        <p class="text-gray-400">{{item.title}}</p>
+        {% else %}
         <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
-
         <span
             onclick="my_modal_1.showModal()"
             style="margin: 0; cursor: pointer; color: #818181; cursor: pointer"
             >🗑️</span
         >
+        {% endif %}
+        <!--End item-->
     </div>
     {% endfor %}
 </div>
