@@ -552,6 +552,10 @@ video {
   position: fixed;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
