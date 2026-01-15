@@ -40,6 +40,7 @@ class TimerView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         timer_uuid = kwargs.get("uuid")
         user = request.user
+        # TODO: Ordenar por data de criacao
         timers = Timer.objects.filter(user=user).order_by("title")
         timer_list = timers.values("id", "title")
         timer = timers.get(id=timer_uuid)
@@ -48,6 +49,7 @@ class TimerView(LoginRequiredMixin, View):
             "title": timer.title,
             "current_value": timer.current_value,
             "count": timer.timer_count,
+            "status": timer.status,
             "timer_list": timer_list,
         }
         return render(request, template_name="timer.html", context=context)
@@ -73,3 +75,12 @@ class TimerView(LoginRequiredMixin, View):
             timer_dict,
             content_type="application/json",
         )
+
+    def delete(self, request, *args, **kwargs):
+        timer_id = kwargs.get("uuid", None)
+        try:
+            timer = Timer.objects.get(id=timer_id)
+            timer.delete()
+            return JsonResponse({}, content_type="application/json")
+        except ObjectDoesNotExist:
+            return JsonResponse({}, content_type="application/json")

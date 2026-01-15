@@ -12,13 +12,21 @@
     	padding-top:20px;
     }
 
-    .sidenav a {
+    .sidenav a{
     	padding:6px 8px 6px 16px;
     	text-decoration: none;
     	font-size:18px;
     	color: #818181;
     	display:block;
     }
+    .sidenav p{
+        	padding:6px 8px 6px 16px;
+        	text-decoration: none;
+        	font-size:18px;
+        	color: #555555;
+        	display:block;
+        }
+
 
     .sidenav a:hover{
     	color:#f1f1f1;
@@ -28,11 +36,74 @@
     	margin-left:160px;
     	padding: 0px 10px;
     }
+
+    .dialog-content {
+        width: 100px;
+        height: 100px;
+    }
 </style>
+
+<dialog id="my_modal_1" class="modal rounded-lg absolute">
+    <div class="modal-box" style="padding: 1rem; text-align: center;">
+        <h3 class="text-lg font-bold">Tem certeza que deseja remover "{{title}}" ?</h3>
+        <div class="grid-cols-2 space-x-4" style="justify-content: center; display: flex; padding: 0.5rem;">
+            <button class="px-6 py-3 bg-red-500 text-white rounded-lg" id="remove-button" onclick="deleteTimer(this)">Sim</button>
+            <button class="px-6 py-3 bg-gray-500 text-white rounded-lg" onclick="my_modal_1.close()">Não</button>
+        </div>
+</dialog>
+
 <div class="sidenav">
     {% for item in timer_list %}
-    <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
+    <ul class="list">
+        <!--Item-->
+        {% if item.id == uuid %}
+        <li style="display: flex;">
+            <p class="text-gray-400">{{item.title}}</p>
+        </li>
+        {% else %}
+        <li  style="display: flex; align-items: center;">
+            <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
+            <span
+                onclick="toggleDialogWithId('{{item.id}}')"
+                style="cursor: pointer; color: #818181;"
+            >🗑️</span>
+        </li>
+        {% endif %}
+        <!--End item-->
+    </ul>
     {% endfor %}
 </div>
+
+<script>
+    function toggleDialogWithId(item_id) {
+        // Get the button by id
+        const remove_button = document.getElementById("remove-button");
+
+        // Set data-id to the id of the element
+        remove_button.setAttribute("data-id", item_id);
+
+        // Open the dialog
+        my_modal_1.showModal();
+    }
+
+    function deleteTimer(element) {
+        const timer_id = element.getAttribute("data-id")
+        fetch(`/timer/${timer_id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+            .then((response) => {
+              my_modal_1.close();
+              updateRemoteTimer(currentStatus, timeLeft, true);
+              window.location.reload();
+            })
+            .catch((error) => {
+                console.error("Error: ", error);
+            });
+    }
+</script>
 
 {% endblock %}
