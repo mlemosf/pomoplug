@@ -116,6 +116,10 @@
             }
 
             function updateRemoteTimer(status, time_left, reload) {
+                let timerCount = parseInt("{{count}}");
+                if (!reload) {
+                    timerCount++;
+                }
                 clearInterval(timerInterval);
                 fetch("/timer/{{uuid}}", {
                     method: "PUT",
@@ -124,25 +128,29 @@
                         "X-CSRFToken": "{{ csrf_token }}",
                     },
                     body: JSON.stringify({
-                        timer_count: parseInt("{{count}}") + 1,
+                        timer_count: timerCount,
                         status: status,
                         current_value: time_left,
                     }),
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log("Success:", data);
-                        timeLeft = data.current_value;
-                        updateTimer();
-                        updateCount(data.count, data.title);
+                        if (!reload) {
+                            console.log("Success:", data);
+                            timeLeft = data.current_value;
+                            updateTimer();
+                            updateCount(data.count, data.title);
 
-                        // Re-enable the start button
-                        document.querySelector("#startButton").disabled = false;
-                        document.querySelector("#pauseButton").disabled = true;
+                            // Re-enable the start button
+                            document.querySelector("#startButton").disabled =
+                                false;
+                            document.querySelector("#pauseButton").disabled =
+                                true;
 
-                        // Show notification when timer completes
-                        if (Notification.permission === "granted") {
-                            new Notification("Time's up! Get some rest.");
+                            // Show notification when timer completes
+                            if (Notification.permission === "granted") {
+                                new Notification("Time's up! Get some rest.");
+                            }
                         }
                     })
                     .then(() => {
