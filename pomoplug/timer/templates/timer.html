@@ -76,6 +76,7 @@
             const STATUS_STOPPED = 0;
             const STATUS_RUNNING = 1;
             const TIMER_FULL = 1500;
+            let currentStatus = '{{status|add:"0"}}';
 
             const timerElement = document.getElementById("timer");
             const countElement = document.getElementById("timer-count");
@@ -89,6 +90,47 @@
                 timerElement.textContent = `${minutes
                     .toString()
                     .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+            }
+
+            function updateRemoteTimer(status, time_left, reload) {
+                clearInterval(timerInterval);
+                fetch("/timer/{{uuid}}", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    body: JSON.stringify({
+                        timer_count: parseInt("{{count}}") + 1,
+                        status: status,
+                        current_value: time_left,
+                    }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log("Success:", data);
+                        timeLeft = data.current_value;
+                        updateTimer();
+                        updateCount(data.count, data.title);
+
+                        // Re-enable the start button
+                        document.querySelector("#startButton").disabled = false;
+                        document.querySelector("#pauseButton").disabled = true;
+
+                        // Show notification when timer completes
+                        if (Notification.permission === "granted") {
+                            new Notification("Time's up! Get some rest.");
+                        }
+                    })
+                    .then(() => {
+                        // Reload page if requested
+                        if (reload) {
+                            window.location.reload();
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
             }
 
             function updateCount(count, title) {
@@ -120,44 +162,11 @@
                         timeLeft--;
                         updateTimer();
                         if (timeLeft <= 0) {
-                            clearInterval(timerInterval);
-                            fetch("/timer/{{uuid}}", {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "X-CSRFToken": "{{ csrf_token }}",
-                                },
-                                body: JSON.stringify({
-                                    timer_count: parseInt("{{count}}") + 1,
-                                    status: STATUS_STOPPED,
-                                    current_value: TIMER_FULL,
-                                }),
-                            })
-                                .then((response) => response.json())
-                                .then((data) => {
-                                    console.log("Success:", data);
-                                    timeLeft = data.current_value;
-                                    updateTimer();
-                                    updateCount(data.count, data.title);
-
-                                    // Re-enable the start button
-                                    document.querySelector(
-                                        "#startButton",
-                                    ).disabled = false;
-                                    document.querySelector(
-                                        "#pauseButton",
-                                    ).disabled = true;
-
-                                    // Show notification when timer completes
-                                    if (Notification.permission === "granted") {
-                                        new Notification(
-                                            "Time's up! Get some rest.",
-                                        );
-                                    }
-                                })
-                                .catch((error) => {
-                                    console.error("Error:", error);
-                                });
+                            updateRemoteTimer(
+                                STATUS_STOPPED,
+                                TIMER_FULL,
+                                false,
+                            );
                             timerInterval = null;
                         }
                     }, 1000);
@@ -168,6 +177,7 @@
                 if (timerInterval) {
                     clearInterval(timerInterval);
                     timerInterval = null;
+                    currentStatus = STATUS_STOPPED;
 
                     fetch("/timer/{{uuid}}", {
                         method: "PUT",

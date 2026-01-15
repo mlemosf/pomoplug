@@ -97,6 +97,7 @@
         })
             .then((response) => {
               my_modal_1.close();
+              updateRemoteTimer(currentStatus, timeLeft, true);
               window.location.reload();
             })
             .catch((error) => {
