@@ -49,6 +49,7 @@
                 </h1>
             </div>
             <div class="flex space-x-4">
+                {% if status == 0 %}
                 <button
                     class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
                     onclick="startTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
@@ -64,6 +65,28 @@
                 >
                     Pause
                 </button>
+                {% else %}
+                <script>
+                    window.onload = function () {
+                        startTimer();
+                    };
+                </script>
+                <button
+                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    onclick="startTimer(); this.disabled = true; document.querySelector('#startButton').disabled = false;"
+                    id="startButton"
+                    disabled
+                >
+                    Start
+                </button>
+                <button
+                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    onclick="pauseTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
+                    id="pauseButton"
+                >
+                    Pause
+                </button>
+                {% endif %}
             </div>
         </div>
         <!--End timer-->
@@ -139,6 +162,7 @@
             }
 
             function startTimer() {
+                currentStatus = STATUS_RUNNING;
                 if (!timerInterval) {
                     fetch("/timer/{{uuid}}", {
                         method: "PUT",
@@ -147,7 +171,7 @@
                             "X-CSRFToken": "{{ csrf_token }}",
                         },
                         body: JSON.stringify({
-                            status: STATUS_RUNNING,
+                            status: currentStatus,
                         }),
                     })
                         .then((response) => response.json())
