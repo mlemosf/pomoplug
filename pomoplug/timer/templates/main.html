@@ -1,0 +1,28 @@
+<!doctype html>
+{% load static %}
+<html>
+    <head>
+        <title>({{count}}) {{title}} - Pomoplug</title>
+        <link
+            rel="stylesheet"
+            href="{% static 'css/output.css' %}"
+            type="text/css"
+        />
+        <link
+            rel="shortcut icon"
+            type="image/png"
+            href="{% static 'img/favicon.ico' %}"
+        />
+    </head>
+    <body class="flex min-h-screen bg-gray-100">
+        {% load static %}
+        <!--Sidebar-->
+
+        <!--End sidebar-->
+        {% include "sidebar.html" %}
+
+        <!--Main content area (Timer)-->
+        {% include "timer.html" %}
+        <!--End timer-->
+    </body>
+</html>

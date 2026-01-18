@@ -1,243 +1,207 @@
-<!doctype html>
-{% load timer_extras %} {% load static %}
-<html>
-    <head>
-        <title>({{count}}) {{title}} - Pomoplug</title>
-        <link
-            rel="stylesheet"
-            href="{% static 'css/output.css' %}"
-            type="text/css"
-        />
-        <link
-            rel="shortcut icon"
-            type="image/png"
-            href="{% static 'img/favicon.ico' %}"
-        />
-    </head>
-    <body class="flex min-h-screen bg-gray-100">
-        {% load static %}
-        <!--Sidebar-->
-
-        <!--End sidebar-->
-        {% include "sidebar.html" %}
-
-        <!--Main content area (Timer)-->
-        <div
-            class="flex-1 flex flex-col items-center justify-center ml-64 p-8 w-full"
+{% block content %} {% load timer_extras %}
+<div class="flex-1 flex flex-col items-center justify-center ml-64 p-8 w-full">
+    <div class="flex items-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">Pomoplug</h1>
+    </div>
+    <div
+        class="w-64 h-64 rounded-full bg-red-500 flex items-center justify-center mb-8"
+    >
+        <h1
+            class="text-6xl font-bold text-white"
+            id="timer"
+            data-time="{{current_value}}"
         >
-            <div class="flex items-center mb-8">
-                <h1 class="text-2xl font-bold text-gray-800">Pomoplug</h1>
-            </div>
-            <div
-                class="w-64 h-64 rounded-full bg-red-500 flex items-center justify-center mb-8"
-            >
-                <h1
-                    class="text-6xl font-bold text-white"
-                    id="timer"
-                    data-time="{{current_value}}"
-                >
-                    {{current_value|seconds_to_hhmm}}
-                </h1>
-            </div>
-            <div class="flex space-x-4">
-                <h1 class="text-2xl font-bold text-gray-800 mb-4">{{title}}</h1>
-                <h1
-                    class="text-2xl font-bold text-gray-800 mb-4"
-                    id="timer-count"
-                >
-                    ({{count}})
-                </h1>
-            </div>
-            <div class="flex space-x-4">
-                {% if status == 0 %}
-                <button
-                    class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    onclick="startTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
-                    id="startButton"
-                >
-                    Start
-                </button>
-                <button
-                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    onclick="pauseTimer(); this.disabled = true; document.querySelector('#startButton').disabled = false;"
-                    id="pauseButton"
-                    disabled
-                >
-                    Pause
-                </button>
-                {% else %}
-                <script>
-                    window.onload = function () {
-                        startTimer();
-                    };
-                </script>
-                <button
-                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    onclick="startTimer(); this.disabled = true; document.querySelector('#startButton').disabled = false;"
-                    id="startButton"
-                    disabled
-                >
-                    Start
-                </button>
-                <button
-                    class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-                    onclick="pauseTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
-                    id="pauseButton"
-                >
-                    Pause
-                </button>
-                {% endif %}
-            </div>
-        </div>
-        <!--End timer-->
-
+            {{current_value|seconds_to_hhmm}}
+        </h1>
+    </div>
+    <div class="flex space-x-4">
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">{{title}}</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-4" id="timer-count">
+            ({{count}})
+        </h1>
+    </div>
+    <div class="flex space-x-4">
+        {% if status == 0 %}
+        <button
+            class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+            onclick="startTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
+            id="startButton"
+        >
+            Start
+        </button>
+        <button
+            class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+            onclick="pauseTimer(); this.disabled = true; document.querySelector('#startButton').disabled = false;"
+            id="pauseButton"
+            disabled
+        >
+            Pause
+        </button>
+        {% else %}
         <script>
-            // Request permission for notification
-            let promise = Notification.requestPermission();
-
-            // Constants
-            const STATUS_STOPPED = 0;
-            const STATUS_RUNNING = 1;
-            const TIMER_FULL = 1500;
-            let currentStatus = '{{status|add:"0"}}';
-
-            const timerElement = document.getElementById("timer");
-            const countElement = document.getElementById("timer-count");
-
-            let timeLeft = parseInt(timerElement.getAttribute("data-time"));
-            let timerInterval;
-
-            function updateTimer() {
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                timerElement.textContent = `${minutes
-                    .toString()
-                    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-            }
-
-            function updateRemoteTimer(status, time_left, reload) {
-                let timerCount = parseInt("{{count}}");
-                if (!reload) {
-                    timerCount++;
-                }
-                clearInterval(timerInterval);
-                fetch("/timer/{{uuid}}", {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRFToken": "{{ csrf_token }}",
-                    },
-                    body: JSON.stringify({
-                        timer_count: timerCount,
-                        status: status,
-                        current_value: time_left,
-                    }),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (!reload) {
-                            console.log("Success:", data);
-                            timeLeft = data.current_value;
-                            updateTimer();
-                            updateCount(data.count, data.title);
-
-                            // Re-enable the start button
-                            document.querySelector("#startButton").disabled =
-                                false;
-                            document.querySelector("#pauseButton").disabled =
-                                true;
-
-                            // Show notification when timer completes
-                            if (Notification.permission === "granted") {
-                                new Notification("Time's up! Get some rest.");
-                            }
-                        }
-                    })
-                    .then(() => {
-                        // Reload page if requested
-                        if (reload) {
-                            window.location.reload();
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                    });
-            }
-
-            function updateCount(count, title) {
-                countElement.textContent = `(${count})`;
-                document.title = `(${count}) ${title} - Pomoplug`;
-            }
-
-            function startTimer() {
-                currentStatus = STATUS_RUNNING;
-                if (!timerInterval) {
-                    fetch("/timer/{{uuid}}", {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRFToken": "{{ csrf_token }}",
-                        },
-                        body: JSON.stringify({
-                            status: currentStatus,
-                        }),
-                    })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            console.log("Success:", data);
-                        })
-                        .catch((error) => {
-                            console.error("Error:", error);
-                        });
-
-                    timerInterval = setInterval(() => {
-                        timeLeft--;
-                        updateTimer();
-                        if (timeLeft <= 0) {
-                            updateRemoteTimer(
-                                STATUS_STOPPED,
-                                TIMER_FULL,
-                                false,
-                            );
-                            timerInterval = null;
-                        }
-                    }, 1000);
-                }
-            }
-
-            function pauseTimer() {
-                if (timerInterval) {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                    currentStatus = STATUS_STOPPED;
-
-                    fetch("/timer/{{uuid}}", {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRFToken": "{{ csrf_token }}",
-                        },
-                        body: JSON.stringify({
-                            status: STATUS_STOPPED,
-                            current_value: timeLeft,
-                        }),
-                    })
-                        .then((response) => response.json())
-                        .then((data) => {
-                            console.log("Success:", data);
-                        })
-                        .catch((error) => {
-                            console.error("Error:", error);
-                        });
-                }
-            }
-
-            document
-                .querySelector("#startButton")
-                .addEventListener("click", startTimer);
-            document
-                .querySelector("#pauseButton")
-                .addEventListener("click", pauseTimer);
+            window.onload = function () {
+                startTimer();
+            };
         </script>
-    </body>
-</html>
+        <button
+            class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+            onclick="startTimer(); this.disabled = true; document.querySelector('#startButton').disabled = false;"
+            id="startButton"
+            disabled
+        >
+            Start
+        </button>
+        <button
+            class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+            onclick="pauseTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
+            id="pauseButton"
+        >
+            Pause
+        </button>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Request permission for notification
+    let promise = Notification.requestPermission();
+
+    // Constants
+    const STATUS_STOPPED = 0;
+    const STATUS_RUNNING = 1;
+    const TIMER_FULL = 1500;
+    let currentStatus = '{{status|add:"0"}}';
+
+    const timerElement = document.getElementById("timer");
+    const countElement = document.getElementById("timer-count");
+
+    let timeLeft = parseInt(timerElement.getAttribute("data-time"));
+    let timerInterval;
+
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerElement.textContent = `${minutes
+            .toString()
+            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    }
+
+    function updateRemoteTimer(status, time_left, reload) {
+        let timerCount = parseInt("{{count}}");
+        if (!reload) {
+            timerCount++;
+        }
+        clearInterval(timerInterval);
+        fetch("/timer/{{uuid}}", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({
+                timer_count: timerCount,
+                status: status,
+                current_value: time_left,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (!reload) {
+                    console.log("Success:", data);
+                    timeLeft = data.current_value;
+                    updateTimer();
+                    updateCount(data.count, data.title);
+
+                    // Re-enable the start button
+                    document.querySelector("#startButton").disabled = false;
+                    document.querySelector("#pauseButton").disabled = true;
+
+                    // Show notification when timer completes
+                    if (Notification.permission === "granted") {
+                        new Notification("Time's up! Get some rest.");
+                    }
+                }
+            })
+            .then(() => {
+                // Reload page if requested
+                if (reload) {
+                    window.location.reload();
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }
+
+    function updateCount(count, title) {
+        countElement.textContent = `(${count})`;
+        document.title = `(${count}) ${title} - Pomoplug`;
+    }
+
+    function startTimer() {
+        currentStatus = STATUS_RUNNING;
+        if (!timerInterval) {
+            fetch("/timer/{{uuid}}", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+                body: JSON.stringify({
+                    status: currentStatus,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Success:", data);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                if (timeLeft <= 0) {
+                    updateRemoteTimer(STATUS_STOPPED, TIMER_FULL, false);
+                    timerInterval = null;
+                }
+            }, 1000);
+        }
+    }
+
+    function pauseTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            currentStatus = STATUS_STOPPED;
+
+            fetch("/timer/{{uuid}}", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+                body: JSON.stringify({
+                    status: STATUS_STOPPED,
+                    current_value: timeLeft,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Success:", data);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
+    }
+
+    document
+        .querySelector("#startButton")
+        .addEventListener("click", startTimer);
+    document
+        .querySelector("#pauseButton")
+        .addEventListener("click", pauseTimer);
+</script>
+{% endblock %}

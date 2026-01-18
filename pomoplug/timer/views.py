@@ -52,7 +52,7 @@ class TimerView(LoginRequiredMixin, View):
             "status": timer.status,
             "timer_list": timer_list,
         }
-        return render(request, template_name="timer.html", context=context)
+        return render(request, template_name="main.html", context=context)
 
     def put(self, request, *args, **kwargs):
         timer_id = kwargs.get("uuid", None)
