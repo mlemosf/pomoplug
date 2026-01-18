@@ -1,43 +1,13 @@
 {% block content %}
 <style type="text/css">
     .sidenav {
-    	height:100%;
-    	width:240px;
-    	position: fixed;
-    	z-index:1;
-    	top:0;
-    	left:0;
-    	background-color:#111;
-    	overflow-x: :hidden;
-    	padding-top:20px;
+        position: fixed;
+        overflow-y: scroll;
+        top: 0;
+        bottom: 0;
     }
 
-    .sidenav a{
-    	padding:6px 8px 6px 16px;
-    	text-decoration: none;
-    	font-size:18px;
-    	color: #818181;
-    	display:block;
-    }
-    .sidenav p{
-        	padding:6px 8px 6px 16px;
-        	text-decoration: none;
-        	font-size:18px;
-        	color: #555555;
-        	display:block;
-        }
-
-
-    .sidenav a:hover{
-    	color:#f1f1f1;
-    }
-
-    .main{
-    	margin-left:160px;
-    	padding: 0px 10px;
-    }
-
-    .dialog-content {
+   .dialog-content {
         width: 100px;
         height: 100px;
     }
@@ -52,28 +22,27 @@
         </div>
 </dialog>
 
-<div class="sidenav">
-    {% for item in timer_list %}
-    <ul class="list">
-        <!--Item-->
-        {% if item.id == uuid %}
-        <li style="display: flex;">
-            <p class="text-gray-400">{{item.title}}</p>
-        </li>
-        {% else %}
-        <li  style="display: flex; align-items: center;">
-            <a href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
-            <span
-                onclick="toggleDialogWithId('{{item.id}}')"
-                style="cursor: pointer; color: #818181;"
-            >🗑️</span>
-        </li>
-        {% endif %}
+<div class="sidenav w-1/4 h-screen bg-gray-500">
+        <ul clas="flex flex-col gap-5 overflow-auto text-sm max-h-full">
+            {% for item in timer_list %}
+            <!--Item-->
+            {% if item.id == uuid %}
+            <li class="flex center bg-gray-500 text-white p-8">
+                {{item.title}}
+            </li>
+            {% else %}
+            <li class="flex flex-row center p-8 bg-gray-500">
+                <a class="text-white" href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
+                <span class="ml-8"
+                    onclick="toggleDialogWithId('{{item.id}}')"
+                    style="cursor: pointer; color: #818181;"
+                >🗑️</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
         <!--End item-->
-    </ul>
-    {% endfor %}
 </div>
-
 <script>
     function toggleDialogWithId(item_id) {
         // Get the button by id

@@ -14,15 +14,15 @@
             href="{% static 'img/favicon.ico' %}"
         />
     </head>
-    <body class="flex min-h-screen bg-gray-100">
-        {% load static %}
+    <body>
+        <!--Main content area-->
+
         <!--Sidebar-->
-
-        <!--End sidebar-->
         {% include "sidebar.html" %}
+        <!--End sidebar-->
 
-        <!--Main content area (Timer)-->
-        {% include "timer.html" %}
+        <!--Timer-->
+        <div class="flex flex-1">{% include "timer.html" %}</div>
         <!--End timer-->
     </body>
 </html>
