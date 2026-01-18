@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import RedirectView, TemplateView, View
+from django.core.exceptions import PermissionDenied
 
 from timer.models import Timer
 
@@ -38,21 +39,24 @@ class TimerView(LoginRequiredMixin, View):
     redirect_field_name = "redirect_to"
 
     def get(self, request, *args, **kwargs):
-        timer_uuid = kwargs.get("uuid")
-        user = request.user
-        # TODO: Ordenar por data de criacao
-        timers = Timer.objects.filter(user=user).order_by("title")
-        timer_list = timers.values("id", "title")
-        timer = timers.get(id=timer_uuid)
-        context = {
-            "uuid": timer.id,
-            "title": timer.title,
-            "current_value": timer.current_value,
-            "count": timer.timer_count,
-            "status": timer.status,
-            "timer_list": timer_list,
-        }
-        return render(request, template_name="main.html", context=context)
+        try:
+            timer_uuid = kwargs.get("uuid")
+            user = request.user
+            # TODO: Ordenar por data de criacao
+            timers = Timer.objects.filter(user=user).order_by("title")
+            timer_list = timers.values("id", "title")
+            timer = timers.get(id=timer_uuid)
+            context = {
+                "uuid": timer.id,
+                "title": timer.title,
+                "current_value": timer.current_value,
+                "count": timer.timer_count,
+                "status": timer.status,
+                "timer_list": timer_list,
+            }
+            return render(request, template_name="main.html", context=context)
+        except ObjectDoesNotExist:
+            return render(request, status=404, template_name="404.html")
 
     def put(self, request, *args, **kwargs):
         timer_id = kwargs.get("uuid", None)
