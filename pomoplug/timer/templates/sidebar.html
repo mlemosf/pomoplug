@@ -11,6 +11,17 @@
         width: 100px;
         height: 100px;
     }
+
+    .custom-li {
+        padding: 10px;
+    }
+
+    .custom-li:hover {
+        padding: 10px;
+        background-color: #aaa;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 </style>
 
 <dialog id="my_modal_1" class="modal rounded-lg absolute">
@@ -22,26 +33,29 @@
         </div>
 </dialog>
 
-<div class="sidenav w-1/4 h-screen bg-gray-500">
-        <ul clas="flex flex-col gap-5 overflow-auto text-sm max-h-full">
-            {% for item in timer_list %}
+<div class="sidenav w-32 h-screen shadow-md">
+    <h1 class="text-black-lg text-bold" style="padding: 10px;">Menu</h1>
+    <ul class="flex flex-col overflow-auto text-sm max-h-full">
+        {% for item in timer_list %}
             <!--Item-->
             {% if item.id == uuid %}
-            <li class="flex center bg-gray-500 text-white p-8">
-                {{item.title}}
+            <li class="flex text-black-lg text-center"  style="padding: 10px; border-radius: 5px; background-color: #ddd">
+                <p>{{item.title}}</p>
             </li>
             {% else %}
-            <li class="flex flex-row center p-8 bg-gray-500">
-                <a class="text-white" href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
+            <li>
+                <div class="custom-li">
+                <a class="text-black-lg" href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
                 <span class="ml-8"
                     onclick="toggleDialogWithId('{{item.id}}')"
                     style="cursor: pointer; color: #818181;"
                 >🗑️</span>
+                </div>
             </li>
             {% endif %}
-            {% endfor %}
-        </ul>
-        <!--End item-->
+            <!--End item-->
+        {% endfor %}
+    </ul>
 </div>
 <script>
     function toggleDialogWithId(item_id) {
