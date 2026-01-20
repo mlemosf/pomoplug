@@ -1,92 +1,237 @@
 {% block content %}
-<style type="text/css">
-    .sidenav {
-        position: fixed;
-        overflow-y: scroll;
-        top: 0;
-        bottom: 0;
-    }
-
-   .dialog-content {
-        width: 100px;
-        height: 100px;
-    }
-
-    .custom-li {
-        padding: 10px;
-    }
-
-    .custom-li:hover {
-        padding: 10px;
-        background-color: #aaa;
-        border-radius: 5px;
-        cursor: pointer;
+<style>
+    #my_modal_1::backdrop {
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(6px);
     }
 </style>
 
-<dialog id="my_modal_1" class="modal rounded-lg absolute">
-    <div class="modal-box" style="padding: 1rem; text-align: center;">
-        <h3 class="text-lg font-bold">Tem certeza que deseja remover "{{title}}" ?</h3>
-        <div class="grid-cols-2 space-x-4" style="justify-content: center; display: flex; padding: 0.5rem;">
-            <button class="px-6 py-3 bg-red-500 text-white rounded-lg" id="remove-button" onclick="deleteTimer(this)">Sim</button>
-            <button class="px-6 py-3 bg-gray-500 text-white rounded-lg" onclick="my_modal_1.close()">Não</button>
+<dialog
+    id="my_modal_1"
+    class="w-full max-w-sm rounded-2xl border border-slate-800 bg-slate-950 p-6 text-center shadow-2xl"
+>
+    <div class="space-y-4">
+        <div class="flex items-center justify-center gap-3 text-amber-300">
+            <span
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-amber-400/10"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="h-5 w-5"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                </svg>
+            </span>
+            <h3 class="text-lg font-semibold text-slate-100">
+                Remover “{{ title }}”?
+            </h3>
         </div>
+        <p class="text-sm text-slate-400">
+            Essa ação apagará o timer definitivamente. Você tem certeza?
+        </p>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <button
+                id="remove-button"
+                type="button"
+                class="inline-flex items-center justify-center rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
+                onclick="deleteTimer(this)"
+            >
+                Sim, remover
+            </button>
+            <button
+                type="button"
+                class="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-amber-400 hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
+                onclick="my_modal_1.close()"
+            >
+                Cancelar
+            </button>
+        </div>
+    </div>
 </dialog>
 
-<div class="sidenav w-32 h-screen shadow-md">
-    <h1 class="text-black-lg text-bold" style="padding: 10px;">Menu</h1>
-    <ul class="flex flex-col overflow-auto text-sm max-h-full">
-        {% for item in timer_list %}
-            <!--Item-->
-            {% if item.id == uuid %}
-            <li class="flex text-black-lg text-center"  style="padding: 10px; border-radius: 5px; background-color: #ddd">
-                <p>{{item.title}}</p>
+<aside
+    class="sidenav fixed inset-y-0 left-0 flex w-64 flex-col border-r border-slate-900 bg-slate-950/95 backdrop-blur"
+>
+    <div class="flex items-center justify-between px-6 py-6">
+        <div>
+            <p
+                class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300"
+            >
+                Timers
+            </p>
+            <h1 class="mt-2 text-xl font-bold text-slate-100">Painel rápido</h1>
+        </div>
+        <span
+            class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-amber-300"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M12 6v6l3 3" />
+                <circle cx="12" cy="12" r="9" />
+            </svg>
+        </span>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-4 pb-8">
+        <ul class="space-y-2">
+            {% for item in timer_list %} {% if item.id == uuid %}
+            <li>
+                <div
+                    class="group flex items-center justify-between rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-2 text-sm font-semibold text-amber-200 shadow-sm"
+                    aria-current="page"
+                >
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-400/20 text-amber-300"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-4 w-4"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M12 6v6l3 3" />
+                                <circle cx="12" cy="12" r="9" />
+                            </svg>
+                        </span>
+                        <span class="w-28 truncate">{{ item.title }}</span>
+                    </div>
+                </div>
             </li>
             {% else %}
             <li>
-                <div class="custom-li">
-                <a class="text-black-lg" href="{% url 'timer-view' uuid=item.id %}">{{item.title}}</a>
-                <span class="ml-8"
-                    onclick="toggleDialogWithId('{{item.id}}')"
-                    style="cursor: pointer; color: #818181;"
-                >🗑️</span>
+                <div
+                    class="group flex items-center justify-between rounded-xl border border-transparent px-4 py-2 transition hover:border-amber-400/40 hover:bg-slate-900/60"
+                >
+                    <a
+                        class="flex flex-1 items-center gap-3 text-sm font-medium text-slate-200 transition group-hover:text-amber-200"
+                        href="{% url 'timer-view' uuid=item.id %}"
+                    >
+                        <span
+                            class="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-amber-300 transition group-hover:bg-amber-400/20"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-4 w-4"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M12 6v6l3 3" />
+                                <circle cx="12" cy="12" r="9" />
+                            </svg>
+                        </span>
+                        <span class="w-28 truncate">{{ item.title }}</span>
+                    </a>
+                    <button
+                        type="button"
+                        class="ml-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-slate-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
+                        onclick="toggleDialogWithId('{{ item.id }}')"
+                        aria-label="Remover timer {{ item.title }}"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M3 6h18" />
+                            <path d="M8 6v12a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V6" />
+                            <path d="M10 6V4a2 2 0 0 1 2-2 2 2 0 0 1 2 2v2" />
+                        </svg>
+                    </button>
                 </div>
             </li>
-            {% endif %}
-            <!--End item-->
-        {% endfor %}
-    </ul>
-</div>
+            {% endif %} {% empty %}
+            <li>
+                <div
+                    class="rounded-xl border border-dashed border-slate-800 bg-slate-900/40 px-4 py-5 text-center"
+                >
+                    <p class="text-sm font-medium text-slate-400">
+                        Nenhum timer encontrado. Crie um novo para começar.
+                    </p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="border-t border-slate-900 px-6 py-5">
+        <p class="text-xs text-slate-500">
+            Acompanhe e sincronize seus ciclos de foco sem sair do fluxo.
+        </p>
+    </div>
+</aside>
+
 <script>
-    function toggleDialogWithId(item_id) {
-        // Get the button by id
-        const remove_button = document.getElementById("remove-button");
+    (function () {
+        const dialog = document.getElementById("my_modal_1");
+        const removeButton = document.getElementById("remove-button");
 
-        // Set data-id to the id of the element
-        remove_button.setAttribute("data-id", item_id);
+        if (!dialog || !removeButton) {
+            return;
+        }
 
-        // Open the dialog
-        my_modal_1.showModal();
-    }
+        window.toggleDialogWithId = function (itemId) {
+            removeButton.dataset.id = itemId;
+            dialog.showModal();
+        };
 
-    function deleteTimer(element) {
-        const timer_id = element.getAttribute("data-id")
-        fetch(`/timer/${timer_id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}",
-            },
-        })
-            .then((response) => {
-              my_modal_1.close();
-              updateRemoteTimer(currentStatus, timeLeft, true);
-              window.location.reload();
+        window.deleteTimer = function (element) {
+            const timerId = element?.dataset?.id;
+            if (!timerId) {
+                return;
+            }
+
+            fetch(`/timer/${timerId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
             })
-            .catch((error) => {
-                console.error("Error: ", error);
-            });
-    }
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Não foi possível remover o timer.");
+                    }
+                    dialog.close();
+                    if (typeof updateRemoteTimer === "function") {
+                        updateRemoteTimer(currentStatus, timeLeft, true);
+                    } else {
+                        window.location.reload();
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        };
+    })();
 </script>
-
 {% endblock %}

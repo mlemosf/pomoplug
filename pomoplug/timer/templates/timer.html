@@ -1,182 +1,386 @@
-{% block content %} {% load timer_extras %}
+{% load timer_extras %}
 <div
-    class="flex flex-1 flex-col items-center justify-center ml-64 p-6 w-full fixed"
+    class="ml-64 flex min-h-screen w-full justify-center bg-slate-950 text-slate-100"
 >
-    <div class="flex items-center mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">Pomoplug</h1>
-    </div>
-    <div
-        class="w-64 h-64 rounded-full bg-red-500 flex items-center justify-center mb-8"
-    >
-        <h1
-            class="text-6xl font-bold text-white"
-            id="timer"
-            data-time="{{current_value}}"
+    <div class="flex w-full max-w-6xl flex-col px-6 py-12 lg:py-16">
+        <header
+            class="flex flex-col gap-6 border-b border-slate-800 pb-10 lg:flex-row lg:items-center lg:justify-between"
         >
-            {{current_value|seconds_to_hhmm}}
-        </h1>
-    </div>
-    <div class="flex space-x-4">
-        <h1 class="text-2xl font-bold text-gray-800 mb-4">{{title}}</h1>
-        <h1 class="text-2xl font-bold text-gray-800 mb-4" id="timer-count">
-            ({{count}})
-        </h1>
-    </div>
-    <div class="flex space-x-4">
-        {% if status == 0 %}
-        <button
-            class="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-            onclick="startTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
-            id="startButton"
-        >
-            Start
-        </button>
-        <button
-            class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-            onclick="pauseTimer(); this.disabled = true; document.querySelector('#startButton').disabled = false;"
-            id="pauseButton"
-            disabled
-        >
-            Pause
-        </button>
-        {% else %}
-        <script>
-            window.onload = function () {
-                startTimer();
-            };
-        </script>
-        <button
-            class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-            onclick="startTimer(); this.disabled = true; document.querySelector('#startButton').disabled = false;"
-            id="startButton"
-            disabled
-        >
-            Start
-        </button>
-        <button
-            class="px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-red-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-            onclick="pauseTimer(); this.disabled = true; document.querySelector('#pauseButton').disabled = false;"
-            id="pauseButton"
-        >
-            Pause
-        </button>
-        {% endif %}
+            <div class="space-y-3">
+                <span
+                    class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-amber-300"
+                >
+                    <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                    Normal mode
+                </span>
+                <h1 class="text-4xl font-black tracking-tight sm:text-5xl">
+                    {{title}}
+                </h1>
+            </div>
+            <div
+                class="flex flex-col items-start gap-3 text-sm text-slate-400 sm:flex-row sm:items-center sm:gap-6"
+            >
+                <span
+                    id="session-status"
+                    class="inline-flex items-center rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-300"
+                >
+                    {% if status == 1 %}Running{% else %}Paused{% endif %}
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs font-medium text-slate-300"
+                >
+                    Completed cycles
+                    <span
+                        id="timer-count"
+                        class="text-sm font-semibold text-amber-300"
+                    >
+                        {{count}}
+                    </span>
+                </span>
+                <a
+                    href="#"
+                    class="inline-flex items-center gap-2 text-xs font-semibold text-amber-300 transition hover:text-amber-200"
+                >
+                    Workflow tips
+                    <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="mt-10 grid gap-12 lg:grid-cols-[1fr_0.85fr]">
+            <section class="space-y-8">
+                <div
+                    class="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 shadow-xl shadow-amber-400/5"
+                >
+                    <div
+                        class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between"
+                    >
+                        <div class="space-y-2">
+                            <h2 class="text-xl font-semibold text-amber-200">
+                                Current pomodoro
+                            </h2>
+                            <p class="text-sm text-slate-300">
+                                Focus through the full sprint. Pomoplug handles
+                                the status updates, logging, and task alignment
+                                in the background.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mt-8 flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:gap-10"
+                    >
+                        <div
+                            class="relative mx-auto flex aspect-square w-64 items-center justify-center rounded-full border border-slate-800 bg-slate-950 shadow-inner shadow-amber-400/10"
+                        >
+                            <div
+                                class="absolute -inset-5 rounded-full bg-gradient-to-br from-amber-400/20 via-amber-500/5 to-transparent opacity-80 blur-3xl"
+                            ></div>
+                            <span
+                                class="relative text-6xl font-black text-amber-300 sm:text-7xl"
+                                id="timer"
+                                data-time="{{current_value}}"
+                            >
+                                {{current_value|seconds_to_hhmm}}
+                            </span>
+                        </div>
+
+                        <div class="flex w-full flex-1 flex-col gap-4">
+                            <div class="flex w-full flex-col gap-3 sm:flex-row">
+                                <button
+                                    type="button"
+                                    id="startButton"
+                                    class="flex-1 rounded-lg bg-amber-400 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400 disabled:opacity-60"
+                                    {%
+                                    if
+                                    status=""
+                                    ="1"
+                                    %}disabled{%
+                                    endif
+                                    %}
+                                >
+                                    Start
+                                </button>
+                                <button
+                                    type="button"
+                                    id="pauseButton"
+                                    class="flex-1 rounded-lg border border-slate-700 bg-slate-900 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-amber-400 hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 disabled:cursor-not-allowed disabled:border-slate-800 disabled:text-slate-500 disabled:opacity-60"
+                                    {%
+                                    if
+                                    status=""
+                                    ="0"
+                                    %}disabled{%
+                                    endif
+                                    %}
+                                >
+                                    Pause
+                                </button>
+                            </div>
+                            <p class="text-xs text-slate-500">
+                                Pomoplug automatically records each completed
+                                cycle and resets the timer to your default
+                                sprint length. When connected tools are open,
+                                identifiers stay in sync without manual updates.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="space-y-6">
+                <div
+                    class="rounded-2xl border border-slate-800 bg-slate-900/40 p-8"
+                >
+                    <h3 class="text-lg font-semibold text-amber-200">
+                        Stay aligned with your workspace
+                    </h3>
+                    <ol
+                        class="mt-6 space-y-5 text-sm text-slate-300 marker:text-amber-300"
+                    >
+                        <li class="flex gap-3">
+                            <span
+                                class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
+                                >1</span
+                            >
+                            Keep the original task open in your tool of choice
+                            so Pomoplug can mirror your progress.
+                        </li>
+                        <li class="flex gap-3">
+                            <span
+                                class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
+                                >2</span
+                            >
+                            Let each sprint finish naturally - cycle counts
+                            update automatically with no manual input.
+                        </li>
+                        <li class="flex gap-3">
+                            <span
+                                class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
+                                >3</span
+                            >
+                            Use the Pause button to log interruptions without
+                            losing your remaining focus time.
+                        </li>
+                        <li class="flex gap-3">
+                            <span
+                                class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
+                                >4</span
+                            >
+                            Reset or archive timers from the sidebar to keep
+                            your active queue clean.
+                        </li>
+                    </ol>
+                </div>
+            </aside>
+        </div>
     </div>
 </div>
 
 <script>
-    // Request permission for notification
-    let promise = Notification.requestPermission();
+    (function () {
+        const STATUS_STOPPED = 0;
+        const STATUS_RUNNING = 1;
+        const TIMER_FULL = 1500;
 
-    // Constants
-    const STATUS_STOPPED = 0;
-    const STATUS_RUNNING = 1;
-    const TIMER_FULL = 1500;
-    let currentStatus = '{{status|add:"0"}}';
+        const sessionTitle = "{{ title|escapejs }}";
+        let storedCount = parseInt("{{ count }}", 10) || 0;
+        let currentStatus = Number('{{ status|add:"0" }}');
 
-    const timerElement = document.getElementById("timer");
-    const countElement = document.getElementById("timer-count");
+        const timerElement = document.getElementById("timer");
+        const countElement = document.getElementById("timer-count");
+        const startButton = document.getElementById("startButton");
+        const pauseButton = document.getElementById("pauseButton");
+        const sessionStatusElement = document.getElementById("session-status");
 
-    let timeLeft = parseInt(timerElement.getAttribute("data-time"));
-    let timerInterval;
-
-    function updateTimer() {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timerElement.textContent = `${minutes
-            .toString()
-            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    }
-
-    function updateRemoteTimer(status, time_left, reload) {
-        let timerCount = parseInt("{{count}}");
-        if (!reload) {
-            timerCount++;
+        if (!timerElement || !countElement || !startButton || !pauseButton) {
+            return;
         }
-        clearInterval(timerInterval);
-        fetch("/timer/{{uuid}}", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": "{{ csrf_token }}",
-            },
-            body: JSON.stringify({
-                timer_count: timerCount,
-                status: status,
-                current_value: time_left,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (!reload) {
-                    console.log("Success:", data);
-                    timeLeft = data.current_value;
-                    updateTimer();
-                    updateCount(data.count, data.title);
 
-                    // Re-enable the start button
-                    document.querySelector("#startButton").disabled = false;
-                    document.querySelector("#pauseButton").disabled = true;
+        if ("Notification" in window && Notification.permission === "default") {
+            Notification.requestPermission().catch(() => {});
+        }
 
-                    // Show notification when timer completes
-                    if (Notification.permission === "granted") {
-                        new Notification("Time's up! Get some rest.");
-                    }
-                }
-            })
-            .then(() => {
-                // Reload page if requested
-                if (reload) {
-                    window.location.reload();
-                }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-    }
+        let timeLeft =
+            parseInt(timerElement.getAttribute("data-time"), 10) || TIMER_FULL;
+        let timerInterval = null;
 
-    function updateCount(count, title) {
-        countElement.textContent = `(${count})`;
-        document.title = `(${count}) ${title} - Pomoplug`;
-    }
+        function syncGlobalState() {
+            window.currentStatus = currentStatus;
+            window.timeLeft = timeLeft;
+        }
 
-    function startTimer() {
-        currentStatus = STATUS_RUNNING;
-        if (!timerInterval) {
-            fetch("/timer/{{uuid}}", {
+        syncGlobalState();
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${String(minutes).padStart(
+                2,
+                "0",
+            )}:${String(seconds).padStart(2, "0")}`;
+        }
+
+        function setSessionStatus(isRunning) {
+            if (!sessionStatusElement) {
+                return;
+            }
+
+            if (isRunning) {
+                sessionStatusElement.textContent = "Running";
+                sessionStatusElement.className =
+                    "inline-flex items-center rounded-full border border-emerald-400/50 bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-300";
+            } else {
+                sessionStatusElement.textContent = "Paused";
+                sessionStatusElement.className =
+                    "inline-flex items-center rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-300";
+            }
+        }
+
+        function setButtonStates(isRunning) {
+            startButton.disabled = isRunning;
+            pauseButton.disabled = !isRunning;
+            setSessionStatus(isRunning);
+        }
+
+        function updateCount(count, title) {
+            if (typeof count === "number" && !Number.isNaN(count)) {
+                storedCount = count;
+                countElement.textContent = count;
+            }
+
+            const resolvedTitle =
+                typeof title === "string" && title.length > 0
+                    ? title
+                    : sessionTitle;
+
+            document.title = `(${storedCount}) ${resolvedTitle} - Pomoplug`;
+        }
+
+        function updateRemoteTimer(status, timeLeftValue, reload) {
+            currentStatus = status;
+
+            if (
+                typeof timeLeftValue === "number" &&
+                !Number.isNaN(timeLeftValue)
+            ) {
+                timeLeft = timeLeftValue;
+            }
+
+            syncGlobalState();
+
+            let nextCount = storedCount;
+
+            if (!reload && status === STATUS_STOPPED) {
+                nextCount += 1;
+            }
+
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+
+            return fetch("/timer/{{uuid}}", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "X-CSRFToken": "{{ csrf_token }}",
                 },
                 body: JSON.stringify({
-                    status: currentStatus,
+                    timer_count: nextCount,
+                    status: status,
+                    current_value: timeLeftValue,
                 }),
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("Success:", data);
+                    if (reload) {
+                        return;
+                    }
+
+                    if (typeof data.current_value === "number") {
+                        timeLeft = data.current_value;
+                        updateTimer();
+                    } else {
+                        timeLeft = timeLeftValue;
+                    }
+
+                    if (typeof data.count === "number") {
+                        storedCount = data.count;
+                    } else {
+                        storedCount = nextCount;
+                    }
+
+                    updateCount(storedCount, data.title);
+                    syncGlobalState();
+                    setButtonStates(false);
+
+                    if (
+                        "Notification" in window &&
+                        Notification.permission === "granted" &&
+                        status === STATUS_STOPPED
+                    ) {
+                        new Notification(
+                            "Time's up! Take a break and log your progress.",
+                        );
+                    }
+                })
+                .then(() => {
+                    if (reload) {
+                        window.location.reload();
+                    }
                 })
                 .catch((error) => {
                     console.error("Error:", error);
                 });
+        }
+
+        function startTimer(options = {}) {
+            if (timerInterval) {
+                return;
+            }
+
+            const { skipStatusUpdate = false } = options;
+
+            currentStatus = STATUS_RUNNING;
+            syncGlobalState();
+
+            if (!skipStatusUpdate) {
+                fetch("/timer/{{uuid}}", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    body: JSON.stringify({
+                        status: currentStatus,
+                    }),
+                }).catch((error) => {
+                    console.error("Error:", error);
+                });
+            }
 
             timerInterval = setInterval(() => {
-                timeLeft--;
+                timeLeft -= 1;
+                syncGlobalState();
                 updateTimer();
+
                 if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    syncGlobalState();
+                    updateTimer();
                     updateRemoteTimer(STATUS_STOPPED, TIMER_FULL, false);
-                    timerInterval = null;
                 }
             }, 1000);
         }
-    }
 
-    function pauseTimer() {
-        if (timerInterval) {
-            clearInterval(timerInterval);
-            timerInterval = null;
+        function pauseTimer() {
             currentStatus = STATUS_STOPPED;
+            syncGlobalState();
+
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
 
             fetch("/timer/{{uuid}}", {
                 method: "PUT",
@@ -191,19 +395,45 @@
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log("Success:", data);
+                    if (typeof data.current_value === "number") {
+                        timeLeft = data.current_value;
+                        updateTimer();
+                    }
+
+                    if (typeof data.count === "number") {
+                        storedCount = data.count;
+                    }
+
+                    updateCount(storedCount, data.title);
+                    syncGlobalState();
                 })
                 .catch((error) => {
                     console.error("Error:", error);
                 });
         }
-    }
 
-    document
-        .querySelector("#startButton")
-        .addEventListener("click", startTimer);
-    document
-        .querySelector("#pauseButton")
-        .addEventListener("click", pauseTimer);
+        startButton.addEventListener("click", () => {
+            setButtonStates(true);
+            startTimer();
+        });
+
+        pauseButton.addEventListener("click", () => {
+            setButtonStates(false);
+            pauseTimer();
+        });
+
+        setButtonStates(currentStatus === STATUS_RUNNING);
+        updateTimer();
+        updateCount(storedCount, sessionTitle);
+        syncGlobalState();
+
+        if (currentStatus === STATUS_RUNNING) {
+            window.addEventListener("load", () => {
+                setButtonStates(true);
+                startTimer({ skipStatusUpdate: true });
+            });
+        }
+
+        window.updateRemoteTimer = updateRemoteTimer;
+    })();
 </script>
-{% endblock %}
