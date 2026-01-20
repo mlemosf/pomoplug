@@ -18,12 +18,13 @@ Including another URLconf
 from authentication.views import AuthenticationView
 from django.contrib import admin
 from django.urls import include, path
-from timer.views import TimerCreateView, TimerView
+from timer.views import TimerCreateView, TimerView, HomeView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login", AuthenticationView.as_view(), name="authentication-view"),
     path("timer/new", TimerCreateView.as_view(), name="timer-create"),
     path("timer/<str:uuid>", TimerView.as_view(), name="timer-view"),
-    path("", include("authentication.urls")),
+    # path("", include("authentication.urls")),
+    path("", HomeView.as_view(), name="home-view")
 ]

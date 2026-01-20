@@ -12,6 +12,8 @@ from django.core.exceptions import PermissionDenied
 from timer.models import Timer
 
 
+class HomeView(LoginRequiredMixin, TemplateView):
+    template_name = "index.html"
 # Create your views here.
 class TimerCreateView(LoginRequiredMixin, RedirectView):
     permanent = False
