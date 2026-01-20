@@ -93,7 +93,7 @@
             {% for item in timer_list %} {% if item.id == uuid %}
             <li>
                 <div
-                    class="group flex items-center justify-between rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-3 text-sm font-semibold text-amber-200 shadow-sm"
+                    class="group flex items-center justify-between rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-2 text-sm font-semibold text-amber-200 shadow-sm"
                     aria-current="page"
                 >
                     <div class="flex items-center gap-3">
@@ -114,14 +114,14 @@
                                 <circle cx="12" cy="12" r="9" />
                             </svg>
                         </span>
-                        <span class="truncate">{{ item.title }}</span>
+                        <span class="w-28 truncate">{{ item.title }}</span>
                     </div>
                 </div>
             </li>
             {% else %}
             <li>
                 <div
-                    class="group flex items-center justify-between rounded-xl border border-transparent px-4 py-3 transition hover:border-amber-400/40 hover:bg-slate-900/60"
+                    class="group flex items-center justify-between rounded-xl border border-transparent px-4 py-2 transition hover:border-amber-400/40 hover:bg-slate-900/60"
                 >
                     <a
                         class="flex flex-1 items-center gap-3 text-sm font-medium text-slate-200 transition group-hover:text-amber-200"
@@ -144,7 +144,7 @@
                                 <circle cx="12" cy="12" r="9" />
                             </svg>
                         </span>
-                        <span class="truncate">{{ item.title }}</span>
+                        <span class="w-28 truncate">{{ item.title }}</span>
                     </a>
                     <button
                         type="button"
