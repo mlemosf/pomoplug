@@ -13,12 +13,19 @@ from django.core.exceptions import PermissionDenied
 from timer.models import Timer
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
+class HomeView(TemplateView):
     template_name = "index.html"
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["base_url"] = BASE_URL
+        user = self.request.user
+
+        if user.is_authenticated:
+            context["logged_in"] = True
+        else:
+            context["logged_in"] = False
+
         return context
 
 # Create your views here.
