@@ -21,7 +21,10 @@ class AuthenticationView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(AuthenticationView, self).get_context_data(*args, **kwargs)
-        context["redirect_to"] = self.request.GET.get("redirect_to")
+        if self.request.GET.get("redirect_to") is not None:
+            context["redirect_to"] = self.request.GET.get("redirect_to")
+        else:
+            context["redirect_to"] = reverse("home-view")
         context["base_url"] = BASE_URL
         context["oauth2_client_id"] = GOOGLE_OAUTH_CLIENT_ID
         return context

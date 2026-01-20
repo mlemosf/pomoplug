@@ -25,6 +25,6 @@ urlpatterns = [
     path("login", AuthenticationView.as_view(), name="authentication-view"),
     path("timer/new", TimerCreateView.as_view(), name="timer-create"),
     path("timer/<str:uuid>", TimerView.as_view(), name="timer-view"),
-    # path("", include("authentication.urls")),
+    path("auth/", include("authentication.urls")),
     path("", HomeView.as_view(), name="home-view")
 ]
