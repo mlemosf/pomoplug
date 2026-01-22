@@ -30,9 +30,10 @@
                     />
                 </svg>
             </span>
-            <h3 class="text-lg font-semibold text-slate-100">
-                Remover “{{ title }}”?
-            </h3>
+            <h3
+                id="timer-title"
+                class="text-lg font-semibold text-slate-100"
+            ></h3>
         </div>
         <p class="text-sm text-slate-400">
             Essa ação apagará o timer definitivamente. Você tem certeza?
@@ -149,7 +150,7 @@
                     <button
                         type="button"
                         class="ml-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-slate-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
-                        onclick="toggleDialogWithId('{{ item.id }}')"
+                        onclick="toggleDialogWithId('{{ item.id }}', '{{ item.title }}')"
                         aria-label="Remover timer {{ item.title }}"
                     >
                         <svg
@@ -194,13 +195,15 @@
     (function () {
         const dialog = document.getElementById("my_modal_1");
         const removeButton = document.getElementById("remove-button");
+        const timerTitle = document.getElementById("timer-title");
 
         if (!dialog || !removeButton) {
             return;
         }
 
-        window.toggleDialogWithId = function (itemId) {
+        window.toggleDialogWithId = function (itemId, title) {
             removeButton.dataset.id = itemId;
+            timerTitle.textContent = `Remover "${title}"?`;
             dialog.showModal();
         };
 
