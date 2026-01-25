@@ -259,6 +259,16 @@
         function updateRemoteTimer(status, timeLeftValue, reload) {
             currentStatus = status;
 
+            // Notify user
+            if (
+                "Notification" in window &&
+                Notification.permission === "granted" &&
+                status === STATUS_STOPPED
+            ) {
+                new Notification(
+                    "Time's up! Take a break and log your progress.",
+                );
+            }
             if (
                 typeof timeLeftValue === "number" &&
                 !Number.isNaN(timeLeftValue)
@@ -313,16 +323,6 @@
                     updateCount(storedCount, data.title);
                     syncGlobalState();
                     setButtonStates(false);
-
-                    if (
-                        "Notification" in window &&
-                        Notification.permission === "granted" &&
-                        status === STATUS_STOPPED
-                    ) {
-                        new Notification(
-                            "Time's up! Take a break and log your progress.",
-                        );
-                    }
                 })
                 .then(() => {
                     if (reload) {
