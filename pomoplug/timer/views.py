@@ -19,6 +19,7 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["base_url"] = BASE_URL
+        context["guide_path"] = "/blog/integration-guides"
         user = self.request.user
 
         if user.is_authenticated:
@@ -69,6 +70,8 @@ class TimerView(LoginRequiredMixin, View):
                 "count": timer.timer_count,
                 "status": timer.status,
                 "timer_list": timer_list,
+                "base_url": BASE_URL,
+                "guide_path": "/blog/integration-guides"
             }
             return render(request, template_name="main.html", context=context)
         except ObjectDoesNotExist:
