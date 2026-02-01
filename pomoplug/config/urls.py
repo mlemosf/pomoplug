@@ -19,6 +19,7 @@ from authentication.views import AuthenticationView
 from django.contrib import admin
 from django.urls import include, path
 from timer.views import TimerCreateView, TimerView, HomeView
+from blog.views import PostView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,5 +27,6 @@ urlpatterns = [
     path("timer/new", TimerCreateView.as_view(), name="timer-create"),
     path("timer/<str:uuid>", TimerView.as_view(), name="timer-view"),
     path("auth/", include("authentication.urls")),
+    path("blog/<str:slug>", PostView.as_view(), name="post-view"),
     path("", HomeView.as_view(), name="home-view")
 ]

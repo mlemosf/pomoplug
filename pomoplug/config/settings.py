@@ -51,7 +51,7 @@ if not GOOGLE_OAUTH_CLIENT_ID:
 SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 # Application definition
-CUSTOM_APPS = ["authentication", "timer"]
+CUSTOM_APPS = ["authentication", "timer", "blog"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
