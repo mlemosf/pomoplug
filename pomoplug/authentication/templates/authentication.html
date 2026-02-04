@@ -33,31 +33,14 @@
                     </p>
                 </div>
                 <div
-                    class="space-y-4 rounded-xl border border-slate-800 bg-slate-950/80 p-6"
-                >
-                    <p
-                        class="text-xs font-semibold uppercase tracking-wide text-slate-400"
-                    >
-                        Sign in with Google
-                    </p>
-                    <div
-                        id="g_id_onload"
-                        data-client_id="{{oauth2_client_id}}"
-                        data-context="signin"
-                        data-ux_mode="popup"
-                        data-login_uri="{{base_url}}/auth/auth-receiver?redirect_to={{redirect_to}}"
-                        data-itp_support="true"
-                    ></div>
-                    <div
-                        class="g_id_signin"
-                        data-type="standard"
-                        data-shape="rectangular"
-                        data-theme="outline"
-                        data-text="signin_with"
-                        data-size="large"
-                        data-logo_alignment="center"
-                    ></div>
-                </div>
+                    id="g_id_onload"
+                    data-client_id="{{oauth2_client_id}}"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-login_uri="{{base_url}}/auth/auth-receiver?redirect_to={{redirect_to}}"
+                    data-itp_support="true"
+                ></div>
+                <div class="g_id_signin" data-width="500"></div>
                 <p class="text-center text-xs text-slate-500">
                     Need help getting started?
                     <a
