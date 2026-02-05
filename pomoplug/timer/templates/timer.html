@@ -284,7 +284,7 @@
                 nextCount += 1;
             }
 
-            if (timerInterval) {
+            if (timerInterval && status == STATUS_STOPPED) {
                 clearInterval(timerInterval);
                 timerInterval = null;
             }
@@ -322,7 +322,11 @@
 
                     updateCount(storedCount, data.title);
                     syncGlobalState();
-                    setButtonStates(false);
+
+                    // Change button state only when timer stops
+                    if (status == STATUS_STOPPED) {
+                        setButtonStates();
+                    }
                 })
                 .then(() => {
                     if (reload) {
@@ -369,6 +373,10 @@
                     syncGlobalState();
                     updateTimer();
                     updateRemoteTimer(STATUS_STOPPED, TIMER_FULL, false);
+                } else if (timeLeft > 0 && timeLeft % 60 == 0) {
+                    syncGlobalState();
+                    updateTimer();
+                    updateRemoteTimer(STATUS_RUNNING, timeLeft, false);
                 }
             }, 1000);
         }
