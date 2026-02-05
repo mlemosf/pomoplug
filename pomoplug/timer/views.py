@@ -34,7 +34,7 @@ class TimerCreateView(LoginRequiredMixin, RedirectView):
     permanent = False
     query_string = False
     pattern_name = "timer-view"
-    login_url = "/login"
+    signin_url = "/signin"
     redirect_field_name = "redirect_to"
 
     def get_redirect_url(self, *args, **kwargs):
@@ -52,7 +52,7 @@ class TimerCreateView(LoginRequiredMixin, RedirectView):
 
 
 class TimerView(LoginRequiredMixin, View):
-    login_url = "/login"
+    signin_url = "/signin"
     redirect_field_name = "redirect_to"
 
     def get(self, request, *args, **kwargs):

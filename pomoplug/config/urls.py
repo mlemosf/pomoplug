@@ -23,7 +23,7 @@ from blog.views import PostView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login", AuthenticationView.as_view(), name="authentication-view"),
+    path("signin", AuthenticationView.as_view(), name="authentication-view"),
     path("timer/new", TimerCreateView.as_view(), name="timer-create"),
     path("timer/<str:uuid>", TimerView.as_view(), name="timer-view"),
     path("auth/", include("authentication.urls")),
