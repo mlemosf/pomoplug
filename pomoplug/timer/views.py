@@ -60,7 +60,7 @@ class TimerView(LoginRequiredMixin, View):
             timer_uuid = kwargs.get("uuid")
             user = request.user
             # TODO: Ordenar por data de criacao
-            timers = Timer.objects.filter(user=user).order_by("title")
+            timers = Timer.objects.filter(user=user).order_by("-created_at")
             timer_list = timers.values("id", "title")
             timer = timers.get(id=timer_uuid)
             context = {
