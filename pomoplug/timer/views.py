@@ -69,6 +69,7 @@ class TimerView(LoginRequiredMixin, View):
                 "current_value": timer.current_value,
                 "count": timer.timer_count,
                 "status": timer.status,
+                "total_time": timer.total_time,
                 "timer_list": timer_list,
                 "base_url": BASE_URL,
                 "guide_path": "/blog/integration-guides"
@@ -86,12 +87,14 @@ class TimerView(LoginRequiredMixin, View):
         timer.status = body.get("status", timer.status)
         timer.current_value = body.get("current_value", timer.current_value)
         timer.timer_count = body.get("timer_count", timer.timer_count)
+        timer.total_time = body.get("total_time", timer.total_time)
         timer.save()
 
         timer_dict = {
             "title": timer.title,
             "current_value": timer.current_value,
             "count": timer.timer_count,
+            "total_time": timer.total_time
         }
 
         return JsonResponse(
