@@ -20,6 +20,7 @@ class Timer(models.Model):
         related_name="timers",
         on_delete=models.CASCADE,
     )
+    total_time = models.IntegerField(default=0, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
