@@ -203,6 +203,7 @@
         let timeLeft =
             parseInt(timerElement.getAttribute("data-time"), 10) || TIMER_FULL;
         let timerInterval = null;
+        let totalTime = "{{total_time}}"
 
         function syncGlobalState() {
             window.currentStatus = currentStatus;
@@ -299,6 +300,7 @@
                     timer_count: nextCount,
                     status: status,
                     current_value: timeLeftValue,
+                    total_time: TIMER_FULL + {{total_time}}
                 }),
             })
                 .then((response) => response.json())
@@ -309,6 +311,7 @@
 
                     if (typeof data.current_value === "number") {
                         timeLeft = data.current_value;
+                        totalTime = data.total_time;
                         updateTimer();
                     } else {
                         timeLeft = timeLeftValue;
