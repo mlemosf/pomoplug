@@ -62,7 +62,7 @@
                             </h2>
                             <p class="text-sm text-slate-300">
                                 {% blocktranslate %} Focus through the full
-                                sprint. Pomoplug handles the status updates,
+                                sprint. Timurr handles the status updates,
                                 logging, and task alignment in the background.
                                 {% endblocktranslate %}
                             </p>
@@ -119,7 +119,7 @@
                                 </button>
                             </div>
                             <p class="text-xs text-slate-500">
-                                {% blocktranslate %} Pomoplug automatically
+                                {% blocktranslate %} Timurr automatically
                                 records each completed cycle and resets the
                                 timer to your default sprint length. When
                                 connected tools are open, identifiers stay in
@@ -148,7 +148,7 @@
                             >
                             {%blocktranslate %}
                             Keep the original task open in your tool of choice
-                            so Pomoplug can mirror your progress.
+                            so Timurr can mirror your progress.
                             {% endblocktranslate %}
                         </li>
                         <li class="flex gap-3">
@@ -266,7 +266,7 @@
                     ? title
                     : sessionTitle;
 
-            document.title = `(${storedCount}) ${resolvedTitle} - Pomoplug`;
+            document.title = `(${storedCount}) ${resolvedTitle} - Timurr`;
         }
 
         function updateRemoteTimer(status, timeLeftValue, reload) {

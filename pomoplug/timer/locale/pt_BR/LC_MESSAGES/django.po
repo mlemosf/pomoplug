@@ -23,8 +23,8 @@ msgid "Not found"
 msgstr "Não encontrado"
 
 #: timer/templates/404.html:21 timer/templates/index.html:23
-msgid "Pomoplug"
-msgstr "Pomoplug"
+msgid "Timurr"
+msgstr "Timurr"
 
 #: timer/templates/404.html:28
 msgid "Error 404"
@@ -47,8 +47,8 @@ msgid "Return to the homepage"
 msgstr "Retornar para o início"
 
 #: timer/templates/index.html:8
-msgid "Pomoplug - Pluggable timers"
-msgstr "Pomoplug - Temporizadores plugáveis"
+msgid "Timurr - Pluggable timers"
+msgstr "Timurr - Temporizadores plugáveis"
 
 #: timer/templates/index.html:26
 msgid "Keeping you in sync with the tools you already love."
@@ -57,11 +57,11 @@ msgstr "Mantendo você sincronizado com as ferramentas que você já ama."
 #: timer/templates/index.html:29
 msgid ""
 "Add timers directly into Notion, Obsidian, Redmine, Jira and any other tool. "
-"Pomoplug reads the unique identifiers from your tasks and spins up a focused "
+"Timurr reads the unique identifiers from your tasks and spins up a focused "
 "timer in seconds."
 msgstr ""
 "Adicione temporizadores diretamente no Notion, Obsidian, Redmine, Jira e em "
-"qualquer outra ferramenta. O Pomoplug lê os identificadores únicos das suas "
+"qualquer outra ferramenta. O Timurr lê os identificadores únicos das suas "
 "tarefas e inicia um temporizador focado em segundos."
 
 #: timer/templates/index.html:41
@@ -97,7 +97,7 @@ msgstr "Projetado para se encaixar perfeitamente no seu fluxo de trabalho"
 #: timer/templates/index.html:124
 msgid ""
 "\n"
-"                        Pomoplug thrives as an embedded link inside your "
+"                        Timurr thrives as an embedded link inside your "
 "project\n"
 "                        or knowledge management workspace. Whether you plan "
 "your\n"
@@ -105,21 +105,21 @@ msgid ""
 "manage\n"
 "                        product cycles in Redmine, or track sprints in "
 "Jira,\n"
-"                        Pomoplug turns every task into a focus session. "
+"                        Timurr turns every task into a focus session. "
 "Check out\n"
-"                        how to integrate Pomoplug in your tool of choice in "
+"                        how to integrate Timurr in your tool of choice in "
 "the\n"
 "                        "
 msgstr ""
 "\n"
-"                        O Pomoplug prospera como um link incorporado dentro "
+"                        O Timurr prospera como um link incorporado dentro "
 "do seu projeto\n"
 "                        ou espaço de trabalho de gerenciamento de "
 "conhecimento. Seja para planejar seu dia no Notion,\n"
 "                        esboçar trabalhos profundos no Obsidian, gerenciar "
 "ciclos de produto no Redmine ou rastrear sprints no Jira,\n"
-"                        o Pomoplug transforma cada tarefa em uma sessão de "
-"foco. Confira como integrar o Pomoplug na ferramenta de sua escolha no\n"
+"                        o Timurr transforma cada tarefa em uma sessão de "
+"foco. Confira como integrar o Timurr na ferramenta de sua escolha no\n"
 "                        "
 
 #: timer/templates/index.html:132
@@ -147,13 +147,13 @@ msgid "How it works"
 msgstr "Como funciona"
 
 #: timer/templates/index.html:177
-msgid "Add the Pomoplug link to a task in your preferred workspace."
+msgid "Add the Timurr link to a task in your preferred workspace."
 msgstr ""
-"Adicione o link do Pomoplug a uma tarefa no seu espaço de trabalho preferido."
+"Adicione o link do Timurr a uma tarefa no seu espaço de trabalho preferido."
 
 #: timer/templates/index.html:184
-msgid "Pomoplug reads the identifying field from the task."
-msgstr "O Pomoplug lê o campo de identificação da tarefa."
+msgid "Timurr reads the identifying field from the task."
+msgstr "O Timurr lê o campo de identificação da tarefa."
 
 #: timer/templates/index.html:191
 msgid "A personalized pomodoro timer spins up instantly."
@@ -169,10 +169,10 @@ msgstr "Notion"
 
 #: timer/templates/index.html:213
 msgid ""
-"Embed Pomoplug links inside your pages to launch timers right beside your "
+"Embed Timurr links inside your pages to launch timers right beside your "
 "tasks and weekly plans."
 msgstr ""
-"Incorpore links do Pomoplug dentro das suas páginas para iniciar "
+"Incorpore links do Timurr dentro das suas páginas para iniciar "
 "temporizadores ao lado das suas tarefas e planos semanais."
 
 #: timer/templates/index.html:218
@@ -181,10 +181,10 @@ msgstr "Obsidian"
 
 #: timer/templates/index.html:221
 msgid ""
-"Reference Pomoplug from your notes to transform research and writing "
+"Reference Timurr from your notes to transform research and writing "
 "sessions into focused sprints."
 msgstr ""
-"Referencie o Pomoplug em suas notas para transformar sessões de pesquisa e "
+"Referencie o Timurr em suas notas para transformar sessões de pesquisa e "
 "escrita em sprints focados."
 
 #: timer/templates/index.html:226
@@ -204,12 +204,12 @@ msgid "©"
 msgstr "©"
 
 #: timer/templates/index.html:240
-msgid "Pomoplug."
-msgstr "Pomoplug."
+msgid "Timurr."
+msgstr "Timurr."
 
 #: timer/templates/index.html:245
-msgid "Visit the Pomoplug blog"
-msgstr "Visite o blog do Pomoplug"
+msgid "Visit the Timurr blog"
+msgstr "Visite o blog do Timurr"
 
 #: timer/templates/sidebar.html:40
 msgid "This action will permanently delete the timer. Are you sure?"
@@ -270,14 +270,14 @@ msgstr "Timer atual"
 #: timer/templates/timer.html:64
 msgid ""
 " Focus through the full\n"
-"                                sprint. Pomoplug handles the status "
+"                                sprint. Timurr handles the status "
 "updates,\n"
 "                                logging, and task alignment in the "
 "background.\n"
 "                                "
 msgstr ""
 " Mantenha o foco durante todo o\n"
-"                                sprint. O Pomoplug gerencia as atualizações "
+"                                sprint. O Timurr gerencia as atualizações "
 "de status,\n"
 "                                registro e alinhamento de tarefas em segundo "
 "plano.\n"
@@ -285,7 +285,7 @@ msgstr ""
 
 #: timer/templates/timer.html:122
 msgid ""
-" Pomoplug automatically\n"
+" Timurr automatically\n"
 "                                records each completed cycle and resets the\n"
 "                                timer to your default sprint length. When\n"
 "                                connected tools are open, identifiers stay "
@@ -293,7 +293,7 @@ msgid ""
 "                                sync without manual updates.\n"
 "                                "
 msgstr ""
-" O Pomoplug registra automaticamente\n"
+" O Timurr registra automaticamente\n"
 "                                cada ciclo concluído e reinicia o "
 "temporizador\n"
 "                                para o comprimento padrão do sprint. Quando\n"
@@ -312,13 +312,13 @@ msgid ""
 "\n"
 "                            Keep the original task open in your tool of "
 "choice\n"
-"                            so Pomoplug can mirror your progress.\n"
+"                            so Timurr can mirror your progress.\n"
 "                            "
 msgstr ""
 "\n"
 "                            Mantenha a tarefa original aberta na ferramenta "
 "de sua escolha\n"
-"                            para que o Pomoplug possa espelhar seu "
+"                            para que o Timurr possa espelhar seu "
 "progresso.\n"
 "                            "
 
