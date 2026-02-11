@@ -1,4 +1,5 @@
 {% block content %}
+{% load i18n %}
 <style>
     #my_modal_1::backdrop {
         background: rgba(15, 23, 42, 0.65);
@@ -36,7 +37,7 @@
             ></h3>
         </div>
         <p class="text-sm text-slate-400">
-            Essa ação apagará o timer definitivamente. Você tem certeza?
+            {% translate "This action will permanently delete the timer. Are you sure?" %}
         </p>
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button
@@ -45,14 +46,14 @@
                 class="inline-flex items-center justify-center rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300"
                 onclick="deleteTimer(this)"
             >
-                Sim, remover
+                {% translate "Yes, remove" %}
             </button>
             <button
                 type="button"
                 class="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:border-amber-400 hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
                 onclick="my_modal_1.close()"
             >
-                Cancelar
+                {% translate "Cancel" %}
             </button>
         </div>
     </div>
@@ -63,7 +64,7 @@
 >
     <div class="flex items-center justify-between px-8 py-6">
         <div>
-            <h1 class="text-xl font-bold text-slate-100">Timers</h1>
+            <h1 class="text-xl font-bold text-slate-100">{% translate "Timers" %}</h1>
         </div>
         <span
             class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-amber-300"
@@ -146,7 +147,7 @@
                         type="button"
                         class="ml-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-transparent text-slate-500 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
                         onclick="toggleDialogWithId('{{ item.id }}', '{{ item.title }}')"
-                        aria-label="Remover timer {{ item.title }}"
+                        aria-label="{% translate 'Remove timer' %} {{ item.title }}"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +172,7 @@
                     class="rounded-xl border border-dashed border-slate-800 bg-slate-900/40 px-4 py-5 text-center"
                 >
                     <p class="text-sm font-medium text-slate-400">
-                        Nenhum timer encontrado. Crie um novo para começar.
+                        {% translate "No timers found. Create a new one to get started." %}
                     </p>
                 </div>
             </li>
@@ -181,7 +182,7 @@
 
     <div class="border-t border-slate-900 px-6 py-5">
         <p class="text-xs text-slate-500">
-            Acompanhe e sincronize seus ciclos de foco sem sair do fluxo.
+            {% translate "Track and sync your focus cycles without leaving your flow." %}
         </p>
     </div>
 </aside>
@@ -198,7 +199,7 @@
 
         window.toggleDialogWithId = function (itemId, title) {
             removeButton.dataset.id = itemId;
-            timerTitle.textContent = `Remover "${title}"?`;
+            timerTitle.textContent = `{% translate "Remove" %} "${title}"?`;
             dialog.showModal();
         };
 
@@ -217,7 +218,7 @@
             })
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error("Não foi possível remover o timer.");
+                        throw new Error('{% translate "Failed to remove timer." %}');
                     }
                     dialog.close();
                     if (typeof updateRemoteTimer === "function") {

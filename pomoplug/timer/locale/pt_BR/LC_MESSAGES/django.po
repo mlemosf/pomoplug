@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 00:24+0000\n"
+"POT-Creation-Date: 2026-02-11 00:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: timer/templates/sidebar.html:40
+msgid "This action will permanently delete the timer. Are you sure?"
+msgstr "Esta ação excluirá permanentemente o temporizador. Tem certeza?"
+
+#: timer/templates/sidebar.html:49
+msgid "Yes, remove"
+msgstr "Sim, remover"
+
+#: timer/templates/sidebar.html:56
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: timer/templates/sidebar.html:67
+msgid "Timers"
+msgstr ""
+
+#: timer/templates/sidebar.html:150
+msgid "Remove timer"
+msgstr "Remover temporizador"
+
+#: timer/templates/sidebar.html:175
+msgid "No timers found. Create a new one to get started."
+msgstr "Nenhum temporizador encontrado. Crie um novo para começar."
+
+#: timer/templates/sidebar.html:185
+msgid "Track and sync your focus cycles without leaving your flow."
+msgstr "Acompanhe e sincronize seus ciclos de foco sem sair do seu fluxo."
+
+#: timer/templates/sidebar.html:202
+msgid "Remove"
+msgstr "Remover"
+
+#: timer/templates/sidebar.html:221
+msgid "Failed to remove timer."
+msgstr "Falha ao remover temporizador."
 
 #: timer/templates/timer.html:14
 msgid "Normal mode"
@@ -35,8 +71,8 @@ msgid "Integration guides"
 msgstr "Guias de integração"
 
 #: timer/templates/timer.html:61
-msgid "Current pomodoro"
-msgstr "Pomodoro atual"
+msgid "Current timer"
+msgstr "Timer atual"
 
 #: timer/templates/timer.html:64
 msgid ""
@@ -50,8 +86,8 @@ msgstr ""
 " Mantenha o foco durante todo o\n"
 "                                sprint. O Pomoplug gerencia as atualizações "
 "de status,\n"
-"                                registro e alinhamento de tarefas em "
-"segundo plano.\n"
+"                                registro e alinhamento de tarefas em segundo "
+"plano.\n"
 "                                "
 
 #: timer/templates/timer.html:122
@@ -65,7 +101,8 @@ msgid ""
 "                                "
 msgstr ""
 " O Pomoplug registra automaticamente\n"
-"                                cada ciclo concluído e reinicia o temporizador\n"
+"                                cada ciclo concluído e reinicia o "
+"temporizador\n"
 "                                para o comprimento padrão do sprint. Quando\n"
 "                                as ferramentas conectadas estão abertas, os "
 "identificadores\n"
@@ -86,8 +123,8 @@ msgid ""
 "                            "
 msgstr ""
 "\n"
-"                            Mantenha a tarefa original aberta na "
-"ferramenta de sua escolha\n"
+"                            Mantenha a tarefa original aberta na ferramenta "
+"de sua escolha\n"
 "                            para que o Pomoplug possa espelhar seu "
 "progresso.\n"
 "                            "
@@ -115,8 +152,8 @@ msgid ""
 "                            "
 msgstr ""
 "\n"
-"                            Use o botão Pausar para registrar "
-"interrupções sem\n"
+"                            Use o botão Pausar para registrar interrupções "
+"sem\n"
 "                            perder o tempo de foco restante.\n"
 "                            "
 
