@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-11 00:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: timer/templates/timer.html:14
+msgid "Normal mode"
+msgstr "Modo normal"
+
+#: timer/templates/timer.html:27
+msgid "Running"
+msgstr "Executando"
+
+#: timer/templates/timer.html:33
+msgid "Completed cycles"
+msgstr "Ciclos concluídos"
+
+#: timer/templates/timer.html:45
+msgid "Integration guides"
+msgstr "Guias de integração"
+
+#: timer/templates/timer.html:61
+msgid "Current pomodoro"
+msgstr "Pomodoro atual"
+
+#: timer/templates/timer.html:64
+msgid ""
+" Focus through the full\n"
+"                                sprint. Pomoplug handles the status "
+"updates,\n"
+"                                logging, and task alignment in the "
+"background.\n"
+"                                "
+msgstr ""
+" Mantenha o foco durante todo o\n"
+"                                sprint. O Pomoplug gerencia as atualizações "
+"de status,\n"
+"                                registro e alinhamento de tarefas em "
+"segundo plano.\n"
+"                                "
+
+#: timer/templates/timer.html:122
+msgid ""
+" Pomoplug automatically\n"
+"                                records each completed cycle and resets the\n"
+"                                timer to your default sprint length. When\n"
+"                                connected tools are open, identifiers stay "
+"in\n"
+"                                sync without manual updates.\n"
+"                                "
+msgstr ""
+" O Pomoplug registra automaticamente\n"
+"                                cada ciclo concluído e reinicia o temporizador\n"
+"                                para o comprimento padrão do sprint. Quando\n"
+"                                as ferramentas conectadas estão abertas, os "
+"identificadores\n"
+"                                permanecem sincronizados sem atualizações "
+"manuais.\n"
+"                                "
+
+#: timer/templates/timer.html:139
+msgid "Stay aligned with your workspace"
+msgstr "Mantenha-se alinhado com seu espaço de trabalho"
+
+#: timer/templates/timer.html:149
+msgid ""
+"\n"
+"                            Keep the original task open in your tool of "
+"choice\n"
+"                            so Pomoplug can mirror your progress.\n"
+"                            "
+msgstr ""
+"\n"
+"                            Mantenha a tarefa original aberta na "
+"ferramenta de sua escolha\n"
+"                            para que o Pomoplug possa espelhar seu "
+"progresso.\n"
+"                            "
+
+#: timer/templates/timer.html:159
+msgid ""
+"\n"
+"                            Let each sprint finish naturally - cycle counts\n"
+"                            update automatically with no manual input.\n"
+"                            "
+msgstr ""
+"\n"
+"                            Deixe cada sprint terminar naturalmente - as "
+"contagens de ciclos\n"
+"                            são atualizadas automaticamente sem entrada "
+"manual.\n"
+"                            "
+
+#: timer/templates/timer.html:169
+msgid ""
+"\n"
+"                            Use the Pause button to log interruptions "
+"without\n"
+"                            losing your remaining focus time.\n"
+"                            "
+msgstr ""
+"\n"
+"                            Use o botão Pausar para registrar "
+"interrupções sem\n"
+"                            perder o tempo de foco restante.\n"
+"                            "
+
+#: timer/templates/timer.html:179
+msgid ""
+"\n"
+"                            Reset or archive timers from the sidebar to "
+"keep\n"
+"                            your active queue clean.\n"
+"                            "
+msgstr ""
+"\n"
+"                            Redefina ou arquive temporizadores na barra "
+"lateral para\n"
+"                            manter sua fila ativa limpa.\n"
+"                            "
+
+#~ msgid "Paused"
+#~ msgstr "Pausado"
