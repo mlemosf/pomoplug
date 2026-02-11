@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 00:39+0000\n"
+"POT-Creation-Date: 2026-02-11 01:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,175 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: timer/templates/index.html:8
+msgid "Pomoplug - Pluggable timers"
+msgstr "Pomoplug - Temporizadores plugáveis"
+
+#: timer/templates/index.html:23
+msgid "Pomoplug"
+msgstr "Pomoplug"
+
+#: timer/templates/index.html:26
+msgid "Keeping you in sync with the tools you already love."
+msgstr "Mantendo você sincronizado com as ferramentas que você já ama."
+
+#: timer/templates/index.html:29
+msgid ""
+"Add timers directly into Notion, Obsidian, Redmine, Jira and any other tool. "
+"Pomoplug reads the unique identifiers from your tasks and spins up a focused "
+"timer in seconds."
+msgstr ""
+"Adicione temporizadores diretamente no Notion, Obsidian, Redmine, Jira e em "
+"qualquer outra ferramenta. O Pomoplug lê os identificadores únicos das suas "
+"tarefas e inicia um temporizador focado em segundos."
+
+#: timer/templates/index.html:41
+msgid "Sign in to start a session"
+msgstr "Faça login para iniciar uma sessão"
+
+#: timer/templates/index.html:50
+msgid "Create a new task"
+msgstr "Criar uma nova tarefa"
+
+#: timer/templates/index.html:64
+msgid "Give a name to your task."
+msgstr "Dê um nome à sua tarefa."
+
+#: timer/templates/index.html:71
+#, fuzzy
+#| msgid "Current timer"
+msgid "Start timer"
+msgstr "Iniciar temporizador"
+
+#: timer/templates/index.html:74
+msgid ""
+"Timers are generated automatically from the active task identifier in your "
+"linked tool."
+msgstr ""
+"Os temporizadores são gerados automaticamente a partir do identificador da "
+"tarefa ativa na sua ferramenta vinculada."
+
+#: timer/templates/index.html:121
+msgid "Designed to fit right inside your workflow"
+msgstr "Projetado para se encaixar perfeitamente no seu fluxo de trabalho"
+
+#: timer/templates/index.html:124
+msgid ""
+"\n"
+"                        Pomoplug thrives as an embedded link inside your "
+"project\n"
+"                        or knowledge management workspace. Whether you plan "
+"your\n"
+"                        day in Notion, outline deep work in Obsidian, "
+"manage\n"
+"                        product cycles in Redmine, or track sprints in "
+"Jira,\n"
+"                        Pomoplug turns every task into a focus session. "
+"Check out\n"
+"                        how to integrate Pomoplug in your tool of choice in "
+"the\n"
+"                        "
+msgstr ""
+"\n"
+"                        O Pomoplug prospera como um link incorporado dentro "
+"do seu projeto\n"
+"                        ou espaço de trabalho de gerenciamento de "
+"conhecimento. Seja para planejar seu dia no Notion,\n"
+"                        esboçar trabalhos profundos no Obsidian, gerenciar "
+"ciclos de produto no Redmine ou rastrear sprints no Jira,\n"
+"                        o Pomoplug transforma cada tarefa em uma sessão de "
+"foco. Confira como integrar o Pomoplug na ferramenta de sua escolha no\n"
+"                        "
+
+#: timer/templates/index.html:132
+msgid "integration guide."
+msgstr "guia de integração."
+
+#: timer/templates/index.html:141
+msgid "Automatic timer generation"
+msgstr "Geração automática de temporizadores"
+
+#: timer/templates/index.html:147
+msgid "Works with task identifiers"
+msgstr "Funciona com identificadores de tarefas"
+
+#: timer/templates/index.html:153
+msgid "Drop-in link for any workspace"
+msgstr "Link incorporado para qualquer espaço de trabalho"
+
+#: timer/templates/index.html:159
+msgid "Easy sign-in so you focus on your work"
+msgstr "Sign-in fácil para você focar no seu trabalho"
+
+#: timer/templates/index.html:167
+msgid "How it works"
+msgstr "Como funciona"
+
+#: timer/templates/index.html:177
+msgid "Add the Pomoplug link to a task in your preferred workspace."
+msgstr ""
+"Adicione o link do Pomoplug a uma tarefa no seu espaço de trabalho preferido."
+
+#: timer/templates/index.html:184
+msgid "Pomoplug reads the identifying field from the task."
+msgstr "O Pomoplug lê o campo de identificação da tarefa."
+
+#: timer/templates/index.html:191
+msgid "A personalized pomodoro timer spins up instantly."
+msgstr "Um temporizador pomodoro personalizado é iniciado instantaneamente."
+
+#: timer/templates/index.html:198
+msgid "Track progress and stay accountable across every context."
+msgstr "Acompanhe o progresso e mantenha-se responsável em todos os contextos."
+
+#: timer/templates/index.html:210
+msgid "Notion"
+msgstr "Notion"
+
+#: timer/templates/index.html:213
+msgid ""
+"Embed Pomoplug links inside your pages to launch timers right beside your "
+"tasks and weekly plans."
+msgstr ""
+"Incorpore links do Pomoplug dentro das suas páginas para iniciar "
+"temporizadores ao lado das suas tarefas e planos semanais."
+
+#: timer/templates/index.html:218
+msgid "Obsidian"
+msgstr "Obsidian"
+
+#: timer/templates/index.html:221
+msgid ""
+"Reference Pomoplug from your notes to transform research and writing "
+"sessions into focused sprints."
+msgstr ""
+"Referencie o Pomoplug em suas notas para transformar sessões de pesquisa e "
+"escrita em sprints focados."
+
+#: timer/templates/index.html:226
+msgid "Redmine & Jira"
+msgstr "Redmine & Jira"
+
+#: timer/templates/index.html:229
+msgid ""
+"Keep engineering cycles aligned by attaching timers to tickets, stories, and "
+"blockers with zero setup."
+msgstr ""
+"Mantenha os ciclos de engenharia alinhados anexando temporizadores a "
+"tickets, histórias e bloqueios sem configuração."
+
+#: timer/templates/index.html:240
+msgid "©"
+msgstr "©"
+
+#: timer/templates/index.html:240
+msgid "Pomoplug."
+msgstr "Pomoplug."
+
+#: timer/templates/index.html:245
+msgid "Visit the Pomoplug blog"
+msgstr "Visite o blog do Pomoplug"
 
 #: timer/templates/sidebar.html:40
 msgid "This action will permanently delete the timer. Are you sure?"
@@ -32,7 +201,7 @@ msgstr "Cancelar"
 
 #: timer/templates/sidebar.html:67
 msgid "Timers"
-msgstr ""
+msgstr "Temporizadores"
 
 #: timer/templates/sidebar.html:150
 msgid "Remove timer"
@@ -170,6 +339,9 @@ msgstr ""
 "lateral para\n"
 "                            manter sua fila ativa limpa.\n"
 "                            "
+
+#~ msgid "Opinionated focus defaults"
+#~ msgstr "Configurações padrão de foco opinativas"
 
 #~ msgid "Paused"
 #~ msgstr "Pausado"
