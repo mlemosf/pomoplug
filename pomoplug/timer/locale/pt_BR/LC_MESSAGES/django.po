@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 01:01+0000\n"
+"POT-Creation-Date: 2026-02-11 01:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: timer/templates/404.html:19
+msgid "The requested resource could not be found"
+msgstr "O recurso solicitado não pôde ser encontrado"
+
+#: timer/templates/404.html:25
+msgid "Return to Home"
+msgstr "Retornar para o início"
 
 #: timer/templates/index.html:8
 msgid "Pomoplug - Pluggable timers"
@@ -240,7 +248,7 @@ msgid "Integration guides"
 msgstr "Guias de integração"
 
 #: timer/templates/timer.html:61
-msgid "Current timer"
+msgid "Current pomodoro"
 msgstr "Timer atual"
 
 #: timer/templates/timer.html:64

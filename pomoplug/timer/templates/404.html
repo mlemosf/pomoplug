@@ -1,10 +1,11 @@
 <!doctype html>
 {% load static %}
+{% load i18n %}
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>404 - Not found</title>
+        <title>404 - {%translate "Not found" }</title>
         <link
             rel="shortcut icon"
             type="image/png"
@@ -16,13 +17,13 @@
         <div class="text-center">
             <h1 class="text-6xl font-bold text-red-600 mb-4">404</h1>
             <p class="text-2xl text-gray-700 mb-8">
-                The requested resource could not be found
+                {% translate "The requested resource could not be found" %}
             </p>
             <a
                 href="/"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-                Return to Home
+                {% translate "Return to Home" %}
             </a>
         </div>
     </body>
