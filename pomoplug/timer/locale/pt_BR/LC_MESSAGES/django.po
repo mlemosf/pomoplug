@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 01:12+0000\n"
+"POT-Creation-Date: 2026-02-11 02:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,21 +18,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: timer/templates/404.html:19
-msgid "The requested resource could not be found"
-msgstr "O recurso solicitado não pôde ser encontrado"
+#: timer/templates/404.html:8
+msgid "Not found"
+msgstr "Não encontrado"
 
-#: timer/templates/404.html:25
-msgid "Return to Home"
+#: timer/templates/404.html:21 timer/templates/index.html:23
+msgid "Pomoplug"
+msgstr "Pomoplug"
+
+#: timer/templates/404.html:28
+msgid "Error 404"
+msgstr "Erro 404"
+
+#: timer/templates/404.html:31
+msgid "Oh no!"
+msgstr "Ah não!"
+
+#: timer/templates/404.html:34
+msgid ""
+"The resource you’re looking for might have been moved, renamed, or is "
+"temporarily unavailable."
+msgstr ""
+"O recurso que você está procurando pode ter sido movido, renomeado ou está "
+"indisponível."
+
+#: timer/templates/404.html:41
+msgid "Return to the homepage"
 msgstr "Retornar para o início"
 
 #: timer/templates/index.html:8
 msgid "Pomoplug - Pluggable timers"
 msgstr "Pomoplug - Temporizadores plugáveis"
-
-#: timer/templates/index.html:23
-msgid "Pomoplug"
-msgstr "Pomoplug"
 
 #: timer/templates/index.html:26
 msgid "Keeping you in sync with the tools you already love."
@@ -347,6 +363,12 @@ msgstr ""
 "lateral para\n"
 "                            manter sua fila ativa limpa.\n"
 "                            "
+
+#~ msgid "Back to home"
+#~ msgstr "Retornar para o início"
+
+#~ msgid "The requested resource could not be found"
+#~ msgstr "O recurso solicitado não pôde ser encontrado"
 
 #~ msgid "Opinionated focus defaults"
 #~ msgstr "Configurações padrão de foco opinativas"
