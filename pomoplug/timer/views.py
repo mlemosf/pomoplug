@@ -41,7 +41,7 @@ class TimerCreateView(LoginRequiredMixin, RedirectView):
         title = self.request.GET.get("t", None)
         user = self.request.user
         try:
-            timer = Timer.objects.get(title=title)
+            timer = Timer.objects.get(title=title, user=user)
             kwargs["uuid"] = timer.id
             return super().get_redirect_url(*args, **kwargs)
         except ObjectDoesNotExist:
