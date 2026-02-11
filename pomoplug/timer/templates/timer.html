@@ -1,4 +1,4 @@
-{% load timer_extras %}
+{% load timer_extras %} {% load i18n %}
 <div
     class="ml-64 flex min-h-screen w-full justify-center bg-slate-950 text-slate-100"
 >
@@ -11,7 +11,7 @@
                     class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-amber-300"
                 >
                     <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-                    Normal mode
+                    {% translate "Normal mode" %}
                 </span>
                 <h1 class="text-4xl font-black tracking-tight sm:text-5xl">
                     {{title}}
@@ -24,12 +24,13 @@
                     id="session-status"
                     class="inline-flex items-center rounded-full border border-slate-600 bg-slate-800/80 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-300"
                 >
-                    {% if status == 1 %}Running{% else %}Paused{% endif %}
+                    {% if status == 1 %}{% translate "Running" %}{% else %}{%
+                    translate "Paused" %}{% endif %}
                 </span>
                 <span
                     class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-3 py-1 text-xs font-medium text-slate-300"
                 >
-                    Completed cycles
+                    {% translate "Completed cycles" %}
                     <span
                         id="timer-count"
                         class="text-sm font-semibold text-amber-300"
@@ -41,7 +42,7 @@
                     href="{{base_url}}{{guide_path}}"
                     class="inline-flex items-center gap-2 text-xs font-semibold text-amber-300 transition hover:text-amber-200"
                 >
-                    Integration guides
+                    {% translate "Integration guides" %}
                     <span aria-hidden="true">→</span>
                 </a>
             </div>
@@ -57,12 +58,13 @@
                     >
                         <div class="space-y-2">
                             <h2 class="text-xl font-semibold text-amber-200">
-                                Current pomodoro
+                                {% translate "Current pomodoro" %}
                             </h2>
                             <p class="text-sm text-slate-300">
-                                Focus through the full sprint. Pomoplug handles
-                                the status updates, logging, and task alignment
-                                in the background.
+                                {% blocktranslate %} Focus through the full
+                                sprint. Pomoplug handles the status updates,
+                                logging, and task alignment in the background.
+                                {% endblocktranslate %}
                             </p>
                         </div>
                     </div>
@@ -117,10 +119,12 @@
                                 </button>
                             </div>
                             <p class="text-xs text-slate-500">
-                                Pomoplug automatically records each completed
-                                cycle and resets the timer to your default
-                                sprint length. When connected tools are open,
-                                identifiers stay in sync without manual updates.
+                                {% blocktranslate %} Pomoplug automatically
+                                records each completed cycle and resets the
+                                timer to your default sprint length. When
+                                connected tools are open, identifiers stay in
+                                sync without manual updates.
+                                {% endblocktranslate %}
                             </p>
                         </div>
                     </div>
@@ -132,7 +136,7 @@
                     class="rounded-2xl border border-slate-800 bg-slate-900/40 p-8"
                 >
                     <h3 class="text-lg font-semibold text-amber-200">
-                        Stay aligned with your workspace
+                        {% translate "Stay aligned with your workspace" %}
                     </h3>
                     <ol
                         class="mt-6 space-y-5 text-sm text-slate-300 marker:text-amber-300"
@@ -142,32 +146,40 @@
                                 class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
                                 >1</span
                             >
+                            {%blocktranslate %}
                             Keep the original task open in your tool of choice
                             so Pomoplug can mirror your progress.
+                            {% endblocktranslate %}
                         </li>
                         <li class="flex gap-3">
                             <span
                                 class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
                                 >2</span
                             >
+                            {% blocktranslate %}
                             Let each sprint finish naturally - cycle counts
                             update automatically with no manual input.
+                            {% endblocktranslate %}
                         </li>
                         <li class="flex gap-3">
                             <span
                                 class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
                                 >3</span
                             >
+                            {% blocktranslate %}
                             Use the Pause button to log interruptions without
                             losing your remaining focus time.
+                            {% endblocktranslate %}
                         </li>
                         <li class="flex gap-3">
                             <span
                                 class="flex h-8 w-8 items-center justify-center rounded-full border border-amber-400 text-sm font-semibold text-amber-300"
                                 >4</span
                             >
+                            {% blocktranslate %}
                             Reset or archive timers from the sidebar to keep
                             your active queue clean.
+                            {% endblocktranslate %}
                         </li>
                     </ol>
                 </div>
