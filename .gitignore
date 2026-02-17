@@ -15,3 +15,7 @@ wheels/
 
 # Tailwind CLI
 *tailwindcss*
+
+*/db.sqlite3
+design
+pomoplug/staticfiles
