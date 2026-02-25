@@ -23,8 +23,8 @@ Timurr is a versatile Pomodoro timer tool designed to integrate seamlessly with 
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-repo/Timurr.git
-   cd Timurr
+   git clone https://github.com/your-repo/timurr.git
+   cd timurr
    ```
 
 2. **Install Dependencies**:
