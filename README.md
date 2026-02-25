@@ -1,8 +1,8 @@
-# Pomoplug - A Plug-in Pomodoro Tool for All Your Planning Tools
+# Timurr - A Plug-in Pomodoro Tool for All Your Planning Tools
 
 ## Overview
 
-Pomoplug is a versatile Pomodoro timer tool designed to integrate seamlessly with your favorite planning and productivity tools. Built with Django and powered by UV for dependency management, Pomoplug helps you stay focused and productive by breaking your work into manageable intervals.
+Timurr is a versatile Pomodoro timer tool designed to integrate seamlessly with your favorite planning and productivity tools. Built with Django and powered by UV for dependency management, Timurr helps you stay focused and productive by breaking your work into manageable intervals.
 
 ## Features
 
@@ -23,8 +23,8 @@ Pomoplug is a versatile Pomodoro timer tool designed to integrate seamlessly wit
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-repo/pomoplug.git
-   cd pomoplug
+   git clone https://github.com/your-repo/Timurr.git
+   cd Timurr
    ```
 
 2. **Install Dependencies**:
